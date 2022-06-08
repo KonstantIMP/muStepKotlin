@@ -57,8 +57,12 @@ android {
 
 dependencies {
     implementation(libs.androidx.appcompat)
+    implementation(libs.androidx.preference.ktx)
+    implementation(libs.androidx.fragment.ktx)
     implementation(libs.androidx.constraint.layout)
     implementation(libs.androidx.core.ktx)
+
+    implementation(libs.google.material)
 
     testImplementation(libs.junit)
 
