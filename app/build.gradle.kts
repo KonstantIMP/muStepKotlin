@@ -4,11 +4,11 @@ plugins {
 }
 
 android {
-    compileSdk = libs.versions.compile.sdk.version.get().toInt()
+    compileSdkVersion = libs.versions.compile.sdk.version.get()
 
     defaultConfig {
         minSdk = libs.versions.min.sdk.version.get().toInt()
-        targetSdk = libs.versions.target.sdk.version.get().toInt()
+        targetSdkPreview = libs.versions.target.sdk.version.get()
 
         applicationId = AppCoordinates.APP_ID
         versionCode = AppCoordinates.APP_VERSION_CODE
@@ -17,6 +17,7 @@ android {
     }
     buildFeatures {
         viewBinding = true
+        dataBinding = true
     }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
@@ -55,9 +56,6 @@ android {
 }
 
 dependencies {
-    implementation(projects.libraryAndroid)
-    implementation(projects.libraryKotlin)
-
     implementation(libs.androidx.appcompat)
     implementation(libs.androidx.constraint.layout)
     implementation(libs.androidx.core.ktx)

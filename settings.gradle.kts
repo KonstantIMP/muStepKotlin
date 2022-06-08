@@ -13,12 +13,10 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = ("kotlin-android-template")
+rootProject.name = ("mustep")
 
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 
 include(
-    "app",
-    "library-android",
-    "library-kotlin"
+    "app"
 )
