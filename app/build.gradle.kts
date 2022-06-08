@@ -4,11 +4,12 @@ plugins {
 }
 
 android {
-    compileSdkVersion = libs.versions.compile.sdk.version.get()
+    compileSdk = libs.versions.compile.sdk.version.get().toInt()
+    compileSdkPreview = "Tiramisu"
 
     defaultConfig {
         minSdk = libs.versions.min.sdk.version.get().toInt()
-        targetSdkPreview = libs.versions.target.sdk.version.get()
+        targetSdk = libs.versions.target.sdk.version.get().toInt()
 
         applicationId = AppCoordinates.APP_ID
         versionCode = AppCoordinates.APP_VERSION_CODE

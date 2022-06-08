@@ -24,8 +24,8 @@ junit = "4.13.2"
 
 # Android SDK
 min_sdk_version = "26"
-compile_sdk_version = "android-Tiramisu"
-target_sdk_version = "Tiramisu"
+compile_sdk_version = "32"
+target_sdk_version = "32"
 
 # Plugins
 dokka = "1.6.21"

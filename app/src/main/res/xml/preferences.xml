@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.preference.PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <androidx.preference.PreferenceCategory
+        android:title="@string/preferences_general_section">
+
+        <androidx.preference.ListPreference
+            android:key="preferred_language"
+            android:title="@string/preferences_preferred_lang_pref"
+            android:entries="@array/preferences_supported_languages"
+            android:entryValues="@array/preferences_supported_languages_values"
+            android:summary="@string/preferences_preferred_lang_pref_summary"/>
+
+        <androidx.preference.SwitchPreference
+            android:key="dynamic_colors"
+            android:title="@string/preferences_dynamic_colors_pref"
+            android:summary="@string/preferences_dynamic_colors_pref_summary" />
+
+        <androidx.preference.Preference
+            android:key="remove_cached"
+            android:title="@string/preferences_remove_cached_pref"
+            android:summary="@string/preferences_remove_cached_pref_summary" />
+
+    </androidx.preference.PreferenceCategory>
+
+</androidx.preference.PreferenceScreen>
