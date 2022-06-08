@@ -1,6 +1,7 @@
 package org.kimp.mustep
 
 import android.app.Application
+import com.google.android.material.color.DynamicColors
 import java.util.Locale
 import org.kimp.mustep.utils.PreferencesData
 
@@ -24,6 +25,10 @@ class MuStepApplication : Application() {
             val editor = pref.edit()
             editor.putBoolean(PreferencesData.DYNAMIC_COLORS_PREF, true)
             editor.apply()
+        }
+
+        if (pref.getBoolean(PreferencesData.DYNAMIC_COLORS_PREF, true)) {
+            DynamicColors.applyToActivitiesIfAvailable(this)
         }
     }
 }
