@@ -13,6 +13,14 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MuStep"
         tools:ignore="AllowBackup">
+
+        <meta-data
+            android:name="com.here.sdk.access_key_id"
+            android:value="${HERE_MAPS_ACCESS_KEY_ID}" />
+        <meta-data
+            android:name="com.here.sdk.access_key_secret"
+            android:value="${HERE_MAPS_ACCESS_KEY_SECRET}" />
+
         <activity android:name=".ui.activity.MainActivity"
             android:exported="true">
             <intent-filter>

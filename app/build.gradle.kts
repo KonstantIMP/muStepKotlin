@@ -1,6 +1,7 @@
 plugins {
     id("com.android.application")
     kotlin("android")
+    id("com.google.android.libraries.mapsplatform.secrets-gradle-plugin")
 }
 
 android {
@@ -57,13 +58,21 @@ android {
 }
 
 dependencies {
+    implementation(fileTree("libs"))
+
     implementation(libs.androidx.appcompat)
     implementation(libs.androidx.preference.ktx)
     implementation(libs.androidx.fragment.ktx)
     implementation(libs.androidx.constraint.layout)
     implementation(libs.androidx.core.ktx)
 
+    implementation(libs.google.gson)
     implementation(libs.google.material)
+    implementation(libs.google.exoplayer)
+
+    implementation(libs.other.okhttp)
+    implementation(libs.other.retrofit)
+    implementation(libs.other.picasso)
 
     testImplementation(libs.junit)
 

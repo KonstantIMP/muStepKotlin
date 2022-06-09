@@ -1,6 +1,7 @@
 package org.kimp.mustep
 
 import android.app.Application
+import android.content.Context
 import com.google.android.material.color.DynamicColors
 import java.util.Locale
 import org.kimp.mustep.utils.PreferencesData
@@ -31,4 +32,6 @@ class MuStepApplication : Application() {
             DynamicColors.applyToActivitiesIfAvailable(this)
         }
     }
+
+    fun getContext() : Context = applicationContext
 }

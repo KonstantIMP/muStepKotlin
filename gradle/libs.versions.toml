@@ -5,7 +5,14 @@ preference = "1.2.0"
 fragment = "1.5.0-rc01"
 constraint_layout = "2.2.0-alpha02"
 
+# Other
+picasso = "2.8"
+okhttp = "5.0.0-alpha.7"
+retrofit = "2.9.0"
+
 # Google
+gson = "2.9.0"
+exoplayer = "2.17.1"
 material = "1.7.0-alpha02"
 
 # Kotlin
@@ -35,7 +42,12 @@ benmanesversion = "0.42.0"
 
 [libraries]
 junit = { module = "junit:junit", version.ref = "junit" }
+google_gson = { module = "com.google.code.gson:gson", version.ref = "gson" }
 google_material = { module = "com.google.android.material:material", version.ref = "material" }
+other_picasso = { module = "com.squareup.picasso:picasso", version.ref = "picasso" }
+other_retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
+other_okhttp = { module = "com.squareup.okhttp3:okhttp", version.ref = "okhttp" }
+google_exoplayer = { module = "com.google.android.exoplayer:exoplayer", version.ref = "exoplayer" }
 androidx_appcompat = { module = "androidx.appcompat:appcompat", version.ref = "appcompat" }
 androidx_preference_ktx = { module = "androidx.preference:preference-ktx", version.ref = "preference" }
 androidx_fragment_ktx = { module = "androidx.fragment:fragment-ktx", version.ref = "fragment" }

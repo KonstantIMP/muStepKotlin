@@ -10,6 +10,12 @@ plugins {
     base
 }
 
+buildscript {
+    dependencies {
+        classpath("com.google.android.libraries.mapsplatform.secrets-gradle-plugin:secrets-gradle-plugin:2.0.1")
+    }
+}
+
 allprojects {
     group = PUBLISHING_GROUP
 }
