@@ -46,6 +46,7 @@ google_gson = { module = "com.google.code.gson:gson", version.ref = "gson" }
 google_material = { module = "com.google.android.material:material", version.ref = "material" }
 other_picasso = { module = "com.squareup.picasso:picasso", version.ref = "picasso" }
 other_retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
+other_retrofit_gson = { module = "com.squareup.retrofit2:converter-gson", version.ref = "gson" }
 other_okhttp = { module = "com.squareup.okhttp3:okhttp", version.ref = "okhttp" }
 google_exoplayer = { module = "com.google.android.exoplayer:exoplayer", version.ref = "exoplayer" }
 androidx_appcompat = { module = "androidx.appcompat:appcompat", version.ref = "appcompat" }

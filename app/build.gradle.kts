@@ -71,8 +71,9 @@ dependencies {
     implementation(libs.google.exoplayer)
 
     implementation(libs.other.okhttp)
-    implementation(libs.other.retrofit)
     implementation(libs.other.picasso)
+    implementation(libs.other.retrofit)
+    implementation(libs.other.retrofit.gson)
 
     testImplementation(libs.junit)
 
