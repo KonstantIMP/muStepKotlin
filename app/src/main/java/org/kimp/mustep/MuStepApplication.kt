@@ -3,7 +3,10 @@ package org.kimp.mustep
 import android.app.Application
 import android.content.Context
 import com.google.android.material.color.DynamicColors
+import com.squareup.picasso.OkHttp3Downloader
+import com.squareup.picasso.Picasso
 import java.util.Locale
+import org.kimp.mustep.utils.AppCache
 import org.kimp.mustep.utils.PreferencesData
 
 
@@ -31,6 +34,12 @@ class MuStepApplication : Application() {
         if (pref.getBoolean(PreferencesData.DYNAMIC_COLORS_PREF, true)) {
             DynamicColors.applyToActivitiesIfAvailable(this)
         }
+
+        Picasso.setSingletonInstance(
+            Picasso.Builder(this)
+                .downloader(OkHttp3Downloader(this, AppCache.IMAGE_CACHE_SIZE))
+                .build()
+        )
     }
 
     fun getContext() : Context = applicationContext
