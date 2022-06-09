@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Kotlin Android Template</string>
+    <string name="app_name">μStep</string>
     <string name="preferences_general_section">General</string>
     <string name="preferences_preferred_lang_pref">Preferred language</string>
     <string name="preferences_preferred_lang_pref_summary">Preferred language for downloaded data</string>
@@ -7,6 +7,10 @@
     <string name="preferences_dynamic_colors_pref_summary">The color of the accent will change with the desktop background</string>
     <string name="preferences_remove_cached_pref">Remove cached</string>
     <string name="preferences_remove_cached_pref_summary">Delete all previously cached data</string>
+
+    <string name="fmm_start_btn_label">Start</string>
+    <string name="fmm_settings_btn_label">Settings</string>
+    <string name="fmm_powered_by_label" translatable="false">by KonstantIMP</string>
 
     <string-array name="preferences_supported_languages">
         <item>Русский</item>

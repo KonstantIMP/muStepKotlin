@@ -4,33 +4,35 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:animateLayoutChanges="true"
     tools:context=".ui.activity.MainActivity">
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/maTitleFragment"
         android:name="org.kimp.mustep.ui.fragment.MainTitleFragment"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="128dp"
-        android:layout_marginEnd="32dp"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginStart="64dp"
+        android:layout_marginTop="48dp"
+        android:layout_marginBottom="64dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:layout="@layout/fragment_main_title" />
+        tools:layout="@layout/fragment_main_title"/>
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/maMenuFragment"
         android:name="org.kimp.mustep.ui.fragment.MainMenuFragment"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginEnd="32dp"
+        android:layout_marginStart="128dp"
+        android:layout_marginTop="64dp"
+        android:layout_marginEnd="64dp"
         android:layout_marginBottom="64dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/maTitleFragment"
+        app:layout_constraintTop_toTopOf="parent"
         tools:layout="@layout/fragment_main_menu" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+
