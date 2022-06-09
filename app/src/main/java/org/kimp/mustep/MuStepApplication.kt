@@ -6,6 +6,7 @@ import com.google.android.material.color.DynamicColors
 import com.squareup.picasso.OkHttp3Downloader
 import com.squareup.picasso.Picasso
 import java.util.Locale
+import org.kimp.mustep.domain.TranslatableEntry
 import org.kimp.mustep.utils.AppCache
 import org.kimp.mustep.utils.PreferencesData
 
@@ -35,12 +36,14 @@ class MuStepApplication : Application() {
             DynamicColors.applyToActivitiesIfAvailable(this)
         }
 
+        PreferencesData.currentLanguage = pref.getString(
+            PreferencesData.PREFERRED_LANGUAGE_PREF, "en"
+        )!!
+
         Picasso.setSingletonInstance(
             Picasso.Builder(this)
                 .downloader(OkHttp3Downloader(this, AppCache.IMAGE_CACHE_SIZE))
                 .build()
         )
     }
-
-    fun getContext() : Context = applicationContext
 }
