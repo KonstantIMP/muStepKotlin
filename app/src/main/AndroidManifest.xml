@@ -39,6 +39,9 @@
 
         <activity android:name=".ui.activity.PreferencesActivity"
             android:exported="false" />
+
+        <activity android:name=".ui.activity.UniversitiesActivity"
+            android:exported="false" />
     </application>
 
 </manifest>

@@ -12,6 +12,11 @@
     <string name="fmm_settings_btn_label">Settings</string>
     <string name="fmm_powered_by_label" translatable="false">by KonstantIMP</string>
 
+    <string name="ucv_start_btn">Let\'s go!</string>
+    <string name="ucv_official_chip">Official</string>
+    <string name="ucv_state_download">Download</string>
+    <string name="ucv_state_downloaded">Downloaded</string>
+
     <string-array name="preferences_supported_languages">
         <item>Русский</item>
         <item>English</item>
