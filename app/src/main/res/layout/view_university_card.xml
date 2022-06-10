@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardCornerRadius="30dp"
+    android:layout_marginBottom="8dp"
+    android:maxWidth="512dp"
+    style="@style/Widget.Material3.CardView.Elevated">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/ucv_official_chip"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            app:chipCornerRadius="16dp"
+            style="@style/Widget.Material3.Chip.Suggestion.Elevated"
+            android:text="@string/ucv_official_chip"
+            app:chipIcon="@drawable/ic_done"
+            app:chipIconTint="?attr/colorAccent"
+            app:chipIconEnabled="true"
+            app:layout_constraintStart_toStartOf="parent"/>
+
+        <LinearLayout
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginBottom="8dp">
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/ucv_head_img"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="0dp"
+                android:maxHeight="350dp"
+                android:scaleType="centerCrop"
+                android:adjustViewBounds="true"
+                android:src="@drawable/ic_downloading"/>
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/ucv_name_msg"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:textStyle="bold"
+                android:textSize="18sp" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/ucv_desc_msg"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="2dp"
+                android:textStyle="italic"
+                android:textSize="14sp" />
+
+            <LinearLayout
+                android:layout_marginTop="16dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="end">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/ucv_get_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    android:text="@string/ucv_state_download"
+                    app:iconGravity="start"
+                    style="@style/Widget.Material3.Button.OutlinedButton.Icon"
+                    app:icon="@drawable/ic_get"/>
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/ucv_start_btn"
+                    android:layout_marginEnd="16dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:text="@string/ucv_start_btn"/>
+            </LinearLayout>
+
+        </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</com.google.android.material.card.MaterialCardView>
