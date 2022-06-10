@@ -66,6 +66,8 @@ dependencies {
     implementation(libs.androidx.constraint.layout)
     implementation(libs.androidx.core.ktx)
 
+    implementation(libs.amazon.s3)
+
     implementation(libs.google.gson)
     implementation(libs.google.material)
     implementation(libs.google.exoplayer)

@@ -10,6 +10,9 @@ picasso = "2.8"
 okhttp = "5.0.0-alpha.7"
 retrofit = "2.9.0"
 
+# Amazon
+aws = "2.47.0"
+
 # Google
 gson = "2.9.0"
 exoplayer = "2.17.1"
@@ -42,6 +45,7 @@ benmanesversion = "0.42.0"
 
 [libraries]
 junit = { module = "junit:junit", version.ref = "junit" }
+amazon_s3 = { module = "com.amazonaws:aws-android-sdk-s3", version.ref = "aws" }
 google_gson = { module = "com.google.code.gson:gson", version.ref = "gson" }
 google_material = { module = "com.google.android.material:material", version.ref = "material" }
 other_picasso = { module = "com.squareup.picasso:picasso", version.ref = "picasso" }
