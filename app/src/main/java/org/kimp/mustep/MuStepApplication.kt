@@ -36,6 +36,7 @@ class MuStepApplication : Application() {
             DynamicColors.applyToActivitiesIfAvailable(this)
         }
 
+        AppCache.loadCachedFloors(this)
         PreferencesData.currentLanguage = pref.getString(
             PreferencesData.PREFERRED_LANGUAGE_PREF, "en"
         )!!
