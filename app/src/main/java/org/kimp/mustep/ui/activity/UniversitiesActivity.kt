@@ -14,6 +14,8 @@ class UniversitiesActivity() : AppCompatActivity() {
     lateinit var binding: ActivityUniversitiesBinding
     lateinit var viewModel: UniversitiesViewModel
 
+    lateinit var adapter: UniversitiesCardViewAdapter
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityUniversitiesBinding.inflate(layoutInflater)
@@ -31,11 +33,23 @@ class UniversitiesActivity() : AppCompatActivity() {
         viewModel.getUniversities().observe(this) {
             if (it.isEmpty() || it == null) return@observe
 
-            binding.uaUniversitiesRv.adapter = UniversitiesCardViewAdapter(it, this)
+            adapter = UniversitiesCardViewAdapter(it, this)
+            binding.uaUniversitiesRv.adapter = adapter
 
             binding.uaLoadingIndicator.visibility = View.GONE
+            adapter.bindToService()
         }
 
         binding.uaReturnBtn.setOnClickListener { finish() }
+    }
+
+    override fun onStart() {
+        super.onStart()
+        if (this::adapter.isInitialized) adapter.bindToService()
+    }
+
+    override fun onStop() {
+        super.onStop()
+        if (this::adapter.isInitialized) adapter.unbindFromService()
     }
 }

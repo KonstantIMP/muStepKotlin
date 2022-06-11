@@ -1,29 +1,50 @@
 package org.kimp.mustep.models
 
+import android.content.ComponentName
+import android.content.Context.BIND_AUTO_CREATE
 import android.content.Intent
-import android.graphics.drawable.Drawable
-import android.util.TypedValue
+import android.content.ServiceConnection
+import android.os.Bundle
+import android.os.IBinder
+import android.os.Message
+import android.os.Messenger
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.res.ResourcesCompat
-import androidx.core.graphics.drawable.DrawableCompat
 import androidx.recyclerview.widget.RecyclerView
-import com.google.android.material.imageview.ShapeableImageView
+import com.google.android.material.snackbar.Snackbar
 import com.squareup.picasso.Picasso
 import org.kimp.mustep.R
 import org.kimp.mustep.databinding.ViewUniversityCardBinding
 import org.kimp.mustep.domain.University
 import org.kimp.mustep.ui.activity.TravelActivity
 import org.kimp.mustep.utils.AppCache
+import org.kimp.mustep.utils.service.BackgroundDownloadingService
+import org.kimp.mustep.utils.service.DOWNLOADING_SERVICE_MSG_QUEUE
 
 
 class UniversitiesCardViewAdapter(
     private val universities: List<University>,
     private val owner: AppCompatActivity
 ) : RecyclerView.Adapter<UniversityCardViewHolder>() {
-    lateinit var placeholder: Drawable
+    private var mService: Messenger? = null
+    private var mBound = false
+
+    fun bindToService() {
+        val intent = Intent(owner, BackgroundDownloadingService::class.java)
+        intent.type = "remote"
+
+        owner.bindService(
+            intent, connection, BIND_AUTO_CREATE
+        )
+    }
+
+    fun unbindFromService() {
+        owner.unbindService(connection)
+        mBound = false;
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UniversityCardViewHolder {
         return UniversityCardViewHolder(
@@ -53,7 +74,54 @@ class UniversitiesCardViewAdapter(
             mapIntent.putExtra("university", universities[position])
             owner.startActivity(mapIntent)
         }
+
+        if (AppCache.isUniversityCached(universities[position].uid, owner)) {
+            holder.getBtn!!.icon = ResourcesCompat.getDrawable(
+                holder.getBtn!!.context.resources,
+                R.drawable.ic_done,
+                holder.getBtn!!.context.theme
+            );
+            holder.getBtn!!.setText(R.string.ucv_state_downloaded);
+        } else {
+            holder.getBtn!!.setOnClickListener {
+                it.isEnabled = false
+
+                if (mBound) {
+                    val message = Message()
+                    message.what = DOWNLOADING_SERVICE_MSG_QUEUE
+
+                    Bundle().apply {
+                        this.putParcelable("data", universities[position])
+                        message.data = this
+                    }
+
+                    try {
+                        mService?.send(message)
+                    } catch (e: Exception) {
+                        e.printStackTrace()
+                    }
+
+                    Snackbar.make(
+                        it, R.string.cache_warn, Snackbar.LENGTH_LONG
+                    ).show();
+                }
+            }
+        }
     }
 
     override fun getItemCount(): Int = universities.size
+
+    private val connection: ServiceConnection = object : ServiceConnection {
+        override fun onServiceConnected(
+            className: ComponentName,
+            service: IBinder
+        ) {
+            mService = Messenger(service)
+            mBound = true
+        }
+
+        override fun onServiceDisconnected(arg0: ComponentName) {
+            mBound = false
+        }
+    }
 }
