@@ -80,8 +80,10 @@ dependencies {
     implementation(libs.google.firebase.analytics.ktx)
     implementation(libs.google.firebase.auth.ktx)
 
+    implementation(libs.other.lottie)
     implementation(libs.other.okhttp)
     implementation(libs.other.picasso)
+    implementation(libs.other.avatarview)
     implementation(libs.other.retrofit)
     implementation(libs.other.retrofit.gson)
 

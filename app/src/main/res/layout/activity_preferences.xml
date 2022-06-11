@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.activity.PreferencesActivity">
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/pa_account_cardview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="30dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        style="@style/Widget.Material3.CardView.Elevated"
+        app:cardBackgroundColor="?attr/colorOnPrimarySurface">
+
+        <LinearLayout
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/pa_signed_in_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal" >
+
+                <io.getstream.avatarview.AvatarView
+                    android:id="@+id/pa_avatarview"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    tools:avatarViewInitials="KM"
+                    app:avatarViewBorderColor="?attr/colorPrimarySurface"
+                    app:avatarViewInitialsTextColor="?attr/colorPrimarySurface"
+                    app:avatarViewInitialsBackgroundColor="?attr/colorOnPrimarySurface"
+                    app:avatarViewInitialsTextStyle="bold"
+                    app:avatarViewShape="circle"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:layout_marginStart="8dp">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_weight="8"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/pa_name_msg"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="2dp"
+                            android:textStyle="bold"
+                            android:textColor="?attr/colorPrimarySurface"
+                            android:maxLines="1"
+                            android:ellipsize="end"
+                            android:singleLine="true"
+                            tools:text="Konstantin Mikhedov oh it is a cringe"/>
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/pa_email_msg"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textColor="?attr/colorPrimarySurface"
+                            android:maxLines="1"
+                            android:ellipsize="end"
+                            android:textStyle="italic"
+                            android:singleLine="true"
+                            android:layout_marginTop="1dp"
+                            android:textSize="11sp"
+                            tools:text="mihedovkos@gmail.com"/>
+
+                    </LinearLayout>
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/pa_logout_btn"
+                        android:layout_width="0dp"
+                        android:layout_weight="2"
+                        android:layout_gravity="center"
+                        android:layout_height="wrap_content"
+                        app:icon="@drawable/ic_logout"
+                        app:iconGravity="textEnd"
+                        app:iconTint="?attr/colorPrimarySurface"
+                        style="@style/Widget.Material3.Button.IconButton"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/pa_signed_out_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginEnd="8dp">
+
+                <com.airbnb.lottie.LottieAnimationView
+                    android:layout_marginStart="4dp"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    app:lottie_rawRes="@raw/nobody"
+                    app:lottie_loop="true"
+                    app:lottie_autoPlay="true" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/pa_auth_btn"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="@string/pa_auth_btn"
+                    android:textSize="11sp"
+                    android:textColor="?attr/colorPrimarySurface"
+                    app:strokeColor="?attr/colorPrimarySurface"
+                    app:strokeWidth="3dp"
+                    style="@style/Widget.Material3.Button.OutlinedButton"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <androidx.fragment.app.FragmentContainerView
+        app:layout_constraintTop_toBottomOf="@id/pa_account_cardview"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="-32dp"
+        android:layout_marginBottom="16dp"
+        android:id="@+id/pa_preferences_fragment"
+        android:name="org.kimp.mustep.ui.fragment.PreferencesFragment"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

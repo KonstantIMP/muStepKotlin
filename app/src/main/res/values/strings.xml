@@ -37,4 +37,15 @@
 
     <string name="error_preview">Something went wrong:</string>
     <string name="cache_warn">Do not close the app</string>
+    <string name="ad_welcome_msg">Welcome!</string>
+    <string name="ad_has_account">Already have an account? Log in</string>
+    <string name="ad_do_not_have_account">Don\'t have an account? Create it</string>
+    <string name="ad_lets_go">Let\'s go!</string>
+    <string name="ad_name_surname_hint">Enter your name and surname</string>
+    <string name="ad_email_hint">Enter your email</string>
+    <string name="ad_password_hint">Enter the password</string>
+    <string name="pa_auth_btn">Log in or create an account</string>
+
+    <string name="pref_restart_need">Changes will be applied after app\'s restart</string>
+    <string name="pref_done">All done!</string>
 </resources>

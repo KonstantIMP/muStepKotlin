@@ -28,7 +28,7 @@ class MuStepApplication : Application() {
         }
         if (!pref.contains(PreferencesData.DYNAMIC_COLORS_PREF)) {
             val editor = pref.edit()
-            editor.putBoolean(PreferencesData.DYNAMIC_COLORS_PREF, true)
+            editor.putBoolean(PreferencesData.DYNAMIC_COLORS_PREF, false)
             editor.apply()
         }
 
