@@ -1,5 +1,9 @@
 package org.kimp.mustep.domain
 
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
+
+@Parcelize
 data class University(
     var uid: String = "",
     var longitude: Double = 0.0,
@@ -8,4 +12,4 @@ data class University(
     var name: TranslatableEntry = TranslatableEntry(),
     var address: TranslatableEntry = TranslatableEntry(),
     var official: Boolean = false
-)
+) : Parcelable
