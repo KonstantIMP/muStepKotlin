@@ -1,10 +1,12 @@
 package org.kimp.mustep.models
 
+import android.content.Intent
 import android.graphics.drawable.Drawable
 import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.graphics.drawable.DrawableCompat
 import androidx.recyclerview.widget.RecyclerView
@@ -13,11 +15,13 @@ import com.squareup.picasso.Picasso
 import org.kimp.mustep.R
 import org.kimp.mustep.databinding.ViewUniversityCardBinding
 import org.kimp.mustep.domain.University
+import org.kimp.mustep.ui.activity.TravelActivity
 import org.kimp.mustep.utils.AppCache
 
 
 class UniversitiesCardViewAdapter(
-    private val universities: List<University>
+    private val universities: List<University>,
+    private val owner: AppCompatActivity
 ) : RecyclerView.Adapter<UniversityCardViewHolder>() {
     lateinit var placeholder: Drawable
 
@@ -41,23 +45,14 @@ class UniversitiesCardViewAdapter(
                 AppCache.getCacheSupportUri(String.format(
                     "%s/head.png", universities[position].uid
                 ), holder.nameLabel!!.context)
-            ).placeholder(createPlaceholder(holder.headImage!!))
+            ).placeholder(R.drawable.ic_downloading)
             .into(holder.headImage)
-    }
 
-    private fun createPlaceholder(parent: ShapeableImageView): Drawable {
-        if (this::placeholder.isInitialized) return placeholder
-
-        val typedValue = TypedValue()
-        parent.context.theme.resolveAttribute(R.attr.colorPrimary, typedValue, true)
-        val color = typedValue.data
-
-        var drawablePlaceholder = ResourcesCompat.getDrawable(
-            parent.context.resources, R.drawable.ic_downloading, parent.context.theme
-        )!!
-        DrawableCompat.setTint(drawablePlaceholder, color)
-
-        return drawablePlaceholder
+        holder.startBtn!!.setOnClickListener {
+            val mapIntent = Intent(it.context, TravelActivity::class.java)
+            mapIntent.putExtra("university", universities[position])
+            owner.startActivity(mapIntent)
+        }
     }
 
     override fun getItemCount(): Int = universities.size
