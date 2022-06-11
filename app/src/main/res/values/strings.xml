@@ -32,6 +32,9 @@
         <item>zh</item>
     </string-array>
 
-    <string name="error_preview">Something went wrong:</string>
+    <string name="service_downloading">Downloading…</string>
+    <string name="service_ready">Ready to cache</string>
 
+    <string name="error_preview">Something went wrong:</string>
+    <string name="cache_warn">Do not close the app</string>
 </resources>
