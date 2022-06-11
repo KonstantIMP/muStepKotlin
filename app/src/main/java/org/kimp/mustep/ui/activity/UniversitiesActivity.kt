@@ -31,7 +31,7 @@ class UniversitiesActivity() : AppCompatActivity() {
         viewModel.getUniversities().observe(this) {
             if (it.isEmpty() || it == null) return@observe
 
-            binding.uaUniversitiesRv.adapter = UniversitiesCardViewAdapter(it)
+            binding.uaUniversitiesRv.adapter = UniversitiesCardViewAdapter(it, this)
 
             binding.uaLoadingIndicator.visibility = View.GONE
         }

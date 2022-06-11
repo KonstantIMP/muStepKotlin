@@ -17,6 +17,9 @@
     <string name="ucv_state_download">Download</string>
     <string name="ucv_state_downloaded">Downloaded</string>
 
+    <string name="ta_back_msg">Back</string>
+    <string name="ta_choose_point">Choose point to start</string>
+
     <string-array name="preferences_supported_languages">
         <item>Русский</item>
         <item>English</item>
@@ -28,5 +31,7 @@
         <item>en</item>
         <item>zh</item>
     </string-array>
+
+    <string name="error_preview">Something went wrong:</string>
 
 </resources>
