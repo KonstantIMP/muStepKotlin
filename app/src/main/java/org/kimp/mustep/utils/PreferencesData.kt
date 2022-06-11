@@ -10,4 +10,6 @@ object PreferencesData {
     const val REMOVE_CACHED_PREF: String = "remove_cached"
 
     var currentLanguage: String = ""
+
+    fun getAudioSuffix() : String = if (currentLanguage == "ru") "ru" else "en"
 }
