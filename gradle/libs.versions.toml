@@ -16,6 +16,7 @@ aws = "2.47.0"
 # Google
 gson = "2.9.0"
 exoplayer = "2.17.1"
+firebase = "30.1.0"
 material = "1.7.0-alpha02"
 
 # Kotlin
@@ -53,6 +54,10 @@ other_retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "re
 other_retrofit_gson = { module = "com.squareup.retrofit2:converter-gson", version.ref = "gson" }
 other_okhttp = { module = "com.squareup.okhttp3:okhttp", version.ref = "okhttp" }
 google_exoplayer = { module = "com.google.android.exoplayer:exoplayer", version.ref = "exoplayer" }
+google_firebase_bom = { module = "com.google.firebase:firebase-bom", version.ref = "firebase" }
+google_firebase_auth_ktx = { module = "com.google.firebase:firebase-auth-ktx" }
+google_firebase_crashlytics_ktx = { module = "com.google.firebase:firebase-crashlytics-ktx" }
+google_firebase_analytics_ktx = { module = "com.google.firebase:firebase-analytics-ktx" }
 androidx_appcompat = { module = "androidx.appcompat:appcompat", version.ref = "appcompat" }
 androidx_preference_ktx = { module = "androidx.preference:preference-ktx", version.ref = "preference" }
 androidx_fragment_ktx = { module = "androidx.fragment:fragment-ktx", version.ref = "fragment" }

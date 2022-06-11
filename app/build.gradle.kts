@@ -2,6 +2,8 @@ plugins {
     id("com.android.application")
     kotlin("android")
     id("com.google.android.libraries.mapsplatform.secrets-gradle-plugin")
+    id("com.google.gms.google-services")
+    id("com.google.firebase.crashlytics")
     id("kotlin-parcelize")
 }
 
@@ -72,6 +74,11 @@ dependencies {
     implementation(libs.google.gson)
     implementation(libs.google.material)
     implementation(libs.google.exoplayer)
+
+    implementation(platform(libs.google.firebase.bom))
+    implementation(libs.google.firebase.crashlytics.ktx)
+    implementation(libs.google.firebase.analytics.ktx)
+    implementation(libs.google.firebase.auth.ktx)
 
     implementation(libs.other.okhttp)
     implementation(libs.other.picasso)
