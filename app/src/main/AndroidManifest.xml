@@ -20,7 +20,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MuStep"
         tools:ignore="AllowBackup">
-
+        <service
+            android:name=".utils.service.BackgroundDownloadingService"
+            android:enabled="true"
+            android:exported="false"></service>
         <service
             android:name=".utils.service.MediaPoolService"
             android:enabled="true"
