@@ -25,6 +25,7 @@
             app:chipIcon="@drawable/ic_done"
             app:chipIconTint="?attr/colorAccent"
             app:chipIconEnabled="true"
+            android:checkable="false"
             app:layout_constraintStart_toStartOf="parent"/>
 
         <LinearLayout
