@@ -1,8 +1,13 @@
 package org.kimp.mustep.ui.fragment
 
+import android.content.Context
 import android.content.Context.MODE_PRIVATE
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.util.Log
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import com.google.android.material.color.DynamicColors
@@ -47,9 +52,9 @@ class PreferencesFragment : PreferenceFragmentCompat(), SharedPreferences.OnShar
 
     override fun onSharedPreferenceChanged(pref: SharedPreferences?, name: String?) {
         when (name) {
-            "dynamic_colors" -> Snackbar.make(
+            "dynamic_colors" -> if (context != null) Snackbar.make(
                 requireContext(), requireView(),
-                getString(R.string.pref_done), Snackbar.LENGTH_LONG
+                getString(R.string.pref_restart_need), Snackbar.LENGTH_LONG
             ).show()
             "preferred_language" -> PreferencesData.currentLanguage =
                 pref?.getString("preferred_language", PreferencesData.currentLanguage)!!
