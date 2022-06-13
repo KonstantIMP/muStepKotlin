@@ -14,12 +14,14 @@ import com.amazonaws.regions.Region
 import com.amazonaws.regions.Regions
 import com.amazonaws.services.s3.AmazonS3Client
 import com.amazonaws.services.s3.model.ObjectMetadata
+import com.amazonaws.services.s3.model.PutObjectRequest
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.google.gson.GsonBuilder
 import io.getstream.avatarview.coil.loadImage
 import java.io.File
 import java.nio.file.Files
+import java.nio.file.StandardCopyOption
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
@@ -161,7 +163,7 @@ class PreferencesActivity : AppCompatActivity() {
 
         lifecycleScope.launch(Dispatchers.IO) {
             val uri = it!!.data!!.data!!
-            val inputStream = contentResolver.openInputStream(uri)
+            val inputStream = contentResolver.openInputStream(uri)!!
 
             val s3Client = AmazonS3Client(
                 StorageCredentials(), Region.getRegion(
@@ -172,7 +174,14 @@ class PreferencesActivity : AppCompatActivity() {
             val avatarName = String.format("%s.%s", currentUser.uid,
                 SimpleDateFormat("ddMMyyyyhhmmss", Locale.getDefault()).format(Date()))
 
-            s3Client.putObject("mustep", String.format("users/%s", avatarName), inputStream, ObjectMetadata())
+            Files.copy(
+                inputStream,
+                File(cacheDir, avatarName).toPath(),
+                StandardCopyOption.REPLACE_EXISTING
+            )
+            inputStream.close()
+
+            s3Client.putObject("mustep", String.format("users/%s", avatarName), File(cacheDir, avatarName))
 
             if (MuStepServiceBuilder.build()
                 .updateAvatar(currentUser.uid, avatarName)
@@ -183,6 +192,8 @@ class PreferencesActivity : AppCompatActivity() {
                     loadUserData(currentUser)
                 }
             }
+
+            File(cacheDir, avatarName).delete()
         }
     }
 }

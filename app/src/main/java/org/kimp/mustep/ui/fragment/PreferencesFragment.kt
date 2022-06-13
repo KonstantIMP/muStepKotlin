@@ -52,7 +52,7 @@ class PreferencesFragment : PreferenceFragmentCompat(), SharedPreferences.OnShar
 
     override fun onSharedPreferenceChanged(pref: SharedPreferences?, name: String?) {
         when (name) {
-            "dynamic_colors" -> if (context != null) Snackbar.make(
+            "dynamic_colors" -> if (context != null && isAdded) Snackbar.make(
                 requireContext(), requireView(),
                 getString(R.string.pref_restart_need), Snackbar.LENGTH_LONG
             ).show()
