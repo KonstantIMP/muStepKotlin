@@ -7,7 +7,6 @@ plugins {
     id("kotlin-parcelize") apply false
     alias(libs.plugins.detekt)
     alias(libs.plugins.versions)
-    cleanup
     base
 }
 
