@@ -1,6 +1,7 @@
 package org.kimp.mustep
 
 import android.app.Application
+import android.content.Intent
 import android.content.res.Configuration
 import android.os.LocaleList
 import com.google.android.material.color.DynamicColors
@@ -9,6 +10,7 @@ import com.squareup.picasso.Picasso
 import java.util.Locale
 import org.kimp.mustep.utils.AppCache
 import org.kimp.mustep.utils.PreferencesData
+import org.kimp.mustep.utils.service.BackgroundDownloadingService
 
 
 class MuStepApplication : Application() {
@@ -46,5 +48,7 @@ class MuStepApplication : Application() {
                 .downloader(OkHttp3Downloader(this, AppCache.IMAGE_CACHE_SIZE))
                 .build()
         )
+
+        startService(Intent(this, BackgroundDownloadingService::class.java))
     }
 }

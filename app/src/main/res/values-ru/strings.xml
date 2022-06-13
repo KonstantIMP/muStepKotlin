@@ -16,7 +16,7 @@
     <string name="ucv_state_downloaded">Загружено</string>
     <string name="ta_back_msg">Назад</string>
     <string name="ta_choose_point">Выберите точку, чтобы начать</string>
-    <string name="service_downloading">Загрузка...</string>
+    <string name="service_downloading">Загрузка…</string>
     <string name="service_ready">Готов к загрузке</string>
     <string name="error_preview">Что-то пошло не так:</string>
     <string name="cache_warn">Не закрывайте приложение</string>

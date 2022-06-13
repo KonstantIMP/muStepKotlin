@@ -38,7 +38,6 @@ class UniversitiesCardViewAdapter(
 
     fun bindToService() {
         val intent = Intent(owner, BackgroundDownloadingService::class.java)
-        intent.type = "remote"
 
         owner.bindService(
             intent, connection, BIND_AUTO_CREATE

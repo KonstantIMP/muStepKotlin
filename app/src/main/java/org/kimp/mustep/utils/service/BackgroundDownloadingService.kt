@@ -1,7 +1,5 @@
 package org.kimp.mustep.utils.service
 
-import android.app.Notification
-import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.Service
 import android.content.Context
@@ -13,7 +11,6 @@ import android.os.IBinder
 import android.os.Looper
 import android.os.Message
 import android.os.Messenger
-import androidx.core.app.NotificationCompat
 import com.google.gson.GsonBuilder
 import java.io.File
 import java.io.FileWriter
@@ -31,12 +28,8 @@ const val DOWNLOADING_SERVICE_MSG_DONE = 11
 
 class BackgroundDownloadingService : Service() {
     private val channelId = "org.kimp.mustep.cache"
-    private val serviceId = 7272
-
-    private lateinit var notification: Notification
 
     private var queueToCache: ArrayList<University> = ArrayList()
-    private var readyToStop: Boolean = false
 
     private lateinit var messenger: Messenger
 
@@ -45,43 +38,10 @@ class BackgroundDownloadingService : Service() {
         uiHandler.sendEmptyMessage(DOWNLOADING_SERVICE_NOTIFY)
     }
 
-    fun setReadyToStop() {
-        readyToStop = true
-        uiHandler.sendEmptyMessage(DOWNLOADING_SERVICE_NOTIFY)
-    }
-
-    private fun createNotificationChannel() {
-        val serviceChannel = NotificationChannel(
-            channelId,
-            "Cache service", NotificationManager.IMPORTANCE_DEFAULT
-        )
-        (getSystemService(NotificationManager::class.java) as NotificationManager).createNotificationChannel(
-            serviceChannel
-        )
-    }
-
     private fun deleteNotificationChannel() {
         (getSystemService(NotificationManager::class.java) as NotificationManager).deleteNotificationChannel(
             channelId
         )
-    }
-
-    private fun createNotification(body: String): Notification {
-        return NotificationCompat.Builder(this, channelId)
-            .setContentTitle(resources.getString(R.string.service_downloading))
-            .setContentText(body)
-            .setShowWhen(false)
-            .setSmallIcon(R.drawable.ic_get)
-            .build()
-    }
-
-    override fun onCreate() {
-        super.onCreate()
-
-        createNotificationChannel()
-        notification = createNotification(resources.getString(R.string.service_ready))
-
-        startForeground(serviceId, notification)
     }
 
     override fun onBind(intent: Intent): IBinder {
@@ -95,10 +55,7 @@ class BackgroundDownloadingService : Service() {
     }
 
     private val uiHandler: Handler = Handler(Looper.getMainLooper()) {
-        if (it.what == DOWNLOADING_SERVICE_NOTIFY + 1) {
-            stopForeground(STOP_FOREGROUND_REMOVE)
-            stopSelf()
-        } else if (queueToCache.size > 0) {
+        if (queueToCache.size > 0) {
             val message = Message()
             message.what = DOWNLOADING_SERVICE_NOTIFY + 1
 
@@ -108,8 +65,7 @@ class BackgroundDownloadingService : Service() {
             }
 
             downloadHandler.sendMessage(message)
-        } else if (readyToStop)
-            downloadHandler.sendEmptyMessage(DOWNLOADING_SERVICE_NOTIFY)
+        }
 
         return@Handler false
     }
@@ -122,16 +78,10 @@ class BackgroundDownloadingService : Service() {
         downloadThread.start()
 
         downloadHandler = Handler(downloadThread.looper) {
-            if (it.what == DOWNLOADING_SERVICE_NOTIFY) {
-                uiHandler.sendEmptyMessage(DOWNLOADING_SERVICE_NOTIFY + 1)
-                downloadThread.quit()
-            } else {
+            if (it.what != DOWNLOADING_SERVICE_NOTIFY) {
                 val client = DownloadClient()
                 val uni: University =
                     it.data!!.getParcelable<University>("data")!!
-
-                (getSystemService(NotificationManager::class.java) as NotificationManager)
-                    .notify(serviceId, createNotification(String.format("%s...", uni.uid)))
 
                 val root = File(cacheDir, String.format("%s%s", uni.uid, File.separator))
                 root.mkdirs()
@@ -204,11 +154,6 @@ class BackgroundDownloadingService : Service() {
                 editor.putStringSet("cached", cached)
                 editor.apply()
 
-                (getSystemService(NotificationManager::class.java) as NotificationManager)
-                    .notify(
-                        serviceId,
-                        createNotification(resources.getString(R.string.service_ready))
-                    )
                 uiHandler.sendEmptyMessage(DOWNLOADING_SERVICE_NOTIFY)
             }
             return@Handler false
@@ -224,7 +169,6 @@ class BackgroundDownloadingService : Service() {
                 DOWNLOADING_SERVICE_MSG_QUEUE -> serviceInstance.addUniversityToQueue(
                     msg.data!!.getParcelable<University>("data")!!
                 )
-                DOWNLOADING_SERVICE_MSG_DONE -> serviceInstance.setReadyToStop()
                 else -> super.handleMessage(msg)
             }
         }

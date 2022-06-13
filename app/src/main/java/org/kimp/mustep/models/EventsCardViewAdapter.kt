@@ -126,6 +126,8 @@ class EventsCardViewAdapter(
                                     owner.resources.getString(R.string.ecv_unregister_ok),
                                     Snackbar.LENGTH_SHORT
                                 ).show()
+
+                                setEventState(event, holder)
                             }
 
                             override fun onFailure(call: Call<Void>, t: Throwable) {
@@ -176,6 +178,8 @@ class EventsCardViewAdapter(
                                         owner.resources.getString(R.string.ecv_register_ok),
                                     Snackbar.LENGTH_SHORT
                                 ).show()
+
+                                setEventState(event, holder)
                             }
 
                             override fun onFailure(call: Call<Void>, t: Throwable) {
