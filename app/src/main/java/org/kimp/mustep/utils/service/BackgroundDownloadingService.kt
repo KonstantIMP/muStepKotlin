@@ -6,7 +6,6 @@ import android.app.NotificationManager
 import android.app.Service
 import android.content.Context
 import android.content.Intent
-import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.HandlerThread
@@ -14,7 +13,6 @@ import android.os.IBinder
 import android.os.Looper
 import android.os.Message
 import android.os.Messenger
-import android.util.Log
 import androidx.core.app.NotificationCompat
 import com.google.gson.GsonBuilder
 import java.io.File
@@ -68,7 +66,7 @@ class BackgroundDownloadingService : Service() {
         )
     }
 
-    private fun createNotification(body: String) : Notification {
+    private fun createNotification(body: String): Notification {
         return NotificationCompat.Builder(this, channelId)
             .setContentTitle(resources.getString(R.string.service_downloading))
             .setContentText(body)
@@ -175,14 +173,21 @@ class BackgroundDownloadingService : Service() {
                 }
 
                 for (floor in floors) {
-                    val tmpRoot = File(root, String.format("floor_%d%s", floor.number, File.separator))
+                    val tmpRoot =
+                        File(root, String.format("floor_%d%s", floor.number, File.separator))
                     tmpRoot.mkdirs()
 
                     for (point in floor.points) {
                         for (suffix in listOf<String>(".png", "_en.mp3", "_ru.mp3")) {
                             client.downloadFile(
                                 AppCache.getCacheSupportUri(
-                                    String.format("%s/floor_%d/%s%s", uni.uid, floor.number, point.uid, suffix),
+                                    String.format(
+                                        "%s/floor_%d/%s%s",
+                                        uni.uid,
+                                        floor.number,
+                                        point.uid,
+                                        suffix
+                                    ),
                                     this
                                 ),
                                 File(tmpRoot, String.format("%s%s", point.uid, suffix))
@@ -200,7 +205,10 @@ class BackgroundDownloadingService : Service() {
                 editor.apply()
 
                 (getSystemService(NotificationManager::class.java) as NotificationManager)
-                    .notify(serviceId, createNotification(resources.getString(R.string.service_ready)))
+                    .notify(
+                        serviceId,
+                        createNotification(resources.getString(R.string.service_ready))
+                    )
                 uiHandler.sendEmptyMessage(DOWNLOADING_SERVICE_NOTIFY)
             }
             return@Handler false
@@ -210,11 +218,11 @@ class BackgroundDownloadingService : Service() {
     internal class IncomingHandler(
         context: Context,
         private val serviceInstance: BackgroundDownloadingService
-    ): Handler(Looper.getMainLooper()) {
+    ) : Handler(Looper.getMainLooper()) {
         override fun handleMessage(msg: Message) {
             when (msg.what) {
                 DOWNLOADING_SERVICE_MSG_QUEUE -> serviceInstance.addUniversityToQueue(
-                        msg.data!!.getParcelable<University>("data")!!
+                    msg.data!!.getParcelable<University>("data")!!
                 )
                 DOWNLOADING_SERVICE_MSG_DONE -> serviceInstance.setReadyToStop()
                 else -> super.handleMessage(msg)

@@ -2,6 +2,7 @@ package org.kimp.mustep.ui.dialog
 
 import android.app.Dialog
 import android.content.Context
+import android.content.Context.MODE_PRIVATE
 import android.content.res.Configuration
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
@@ -14,10 +15,12 @@ import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
+import com.google.gson.GsonBuilder
 import org.kimp.mustep.R
 import org.kimp.mustep.databinding.DialogAuthBinding
 import org.kimp.mustep.domain.User
 import org.kimp.mustep.rest.MuStepServiceBuilder
+import org.kimp.mustep.utils.PreferencesData
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -144,7 +147,7 @@ class AuthDialog(context: Context) : Dialog(context) {
                     .enqueue(
                         object: Callback<User> {
                             override fun onResponse(call: Call<User>, response: Response<User>) {
-                                callbackListener?.authCompleted(response.body()!!)
+                                completeAuth(response.body()!!)
                                 this@AuthDialog.dismiss()
                             }
 
@@ -177,7 +180,7 @@ class AuthDialog(context: Context) : Dialog(context) {
                     .enqueue(
                         object: Callback<User> {
                             override fun onResponse(call: Call<User>, response: Response<User>) {
-                                callbackListener?.authCompleted(response.body()!!)
+                                completeAuth(response.body()!!)
                                 this@AuthDialog.dismiss()
                             }
 
@@ -191,6 +194,16 @@ class AuthDialog(context: Context) : Dialog(context) {
                         }
                     )
             }
+    }
+
+    private fun completeAuth(user: User) {
+        val pref = context.getSharedPreferences(PreferencesData.BASE_PREFERENCES_NAME, MODE_PRIVATE)
+
+        val editor = pref.edit()
+        editor.putString("user", GsonBuilder().create().toJson(user))
+        editor.apply()
+
+        callbackListener?.authCompleted(user)
     }
 
     private fun setLayoutState(state: Boolean, v: View = binding.root) {

@@ -16,6 +16,7 @@ import com.amazonaws.services.s3.AmazonS3Client
 import com.amazonaws.services.s3.model.ObjectMetadata
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
+import com.google.gson.GsonBuilder
 import io.getstream.avatarview.coil.loadImage
 import java.io.File
 import java.nio.file.Files
@@ -31,6 +32,7 @@ import org.kimp.mustep.rest.MuStepServiceBuilder
 import org.kimp.mustep.ui.dialog.AuthDialog
 import org.kimp.mustep.ui.fragment.PreferencesFragment
 import org.kimp.mustep.utils.AppCache
+import org.kimp.mustep.utils.PreferencesData
 import org.kimp.mustep.utils.StorageCredentials
 import retrofit2.Call
 import retrofit2.Callback
@@ -72,11 +74,19 @@ class PreferencesActivity : AppCompatActivity() {
                     }
 
                     override fun onFailure(call: Call<User>, t: Throwable) {
-                        Snackbar.make(
-                            this@PreferencesActivity, binding.root,
-                            String.format("%s %s", getString(R.string.error_preview), t.localizedMessage),
-                            Snackbar.LENGTH_LONG
-                        ).show()
+                        try {
+                            loadUserData(
+                                GsonBuilder().create()
+                                    .fromJson(getSharedPreferences(PreferencesData.BASE_PREFERENCES_NAME, MODE_PRIVATE)
+                                        .getString("user", ""), User::class.java)
+                            )
+                        } catch (e: Exception) {
+                            Snackbar.make(
+                                this@PreferencesActivity, binding.root,
+                                String.format("%s %s and %s", getString(R.string.error_preview), t.localizedMessage, e.localizedMessage),
+                                Snackbar.LENGTH_LONG
+                            ).show()
+                        }
                     }
                 }
                 )
@@ -125,6 +135,12 @@ class PreferencesActivity : AppCompatActivity() {
 
         binding.paLogoutBtn.setOnClickListener {
             FirebaseAuth.getInstance().signOut()
+
+            val pref = getSharedPreferences(PreferencesData.BASE_PREFERENCES_NAME, MODE_PRIVATE)
+            val editor = pref.edit()
+            editor.remove("user")
+            editor.apply()
+
             setSignState()
         }
 
@@ -147,7 +163,7 @@ class PreferencesActivity : AppCompatActivity() {
             val uri = it!!.data!!.data!!
             val inputStream = contentResolver.openInputStream(uri)
 
-            var s3Client = AmazonS3Client(
+            val s3Client = AmazonS3Client(
                 StorageCredentials(), Region.getRegion(
                     Regions.US_WEST_2
                 ))
