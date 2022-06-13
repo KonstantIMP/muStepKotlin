@@ -21,17 +21,11 @@ class EventsActivity : AppCompatActivity() {
         binding = ActivityEventsBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        university = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            if (savedInstanceState == null)
-                intent.extras?.getParcelable("university", University::class.java)!!
-            else
-                savedInstanceState.getParcelable("university", University::class.java)!!
-        } else {
+        university =
             if (savedInstanceState == null)
                 intent.extras?.getParcelable<University>("university") as University
             else
                 savedInstanceState.getParcelable<University>("university") as University
-        }
 
         binding.eaNameMsg.text = university.name.getTranslatedValue()
         binding.eaAddrMsg.text = university.address.getTranslatedValue()

@@ -129,8 +129,7 @@ class BackgroundDownloadingService : Service() {
                 downloadThread.quit()
             } else {
                 val client = DownloadClient()
-                val uni: University = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU)
-                    it.data!!.getParcelable("data", University::class.java)!! else
+                val uni: University =
                     it.data!!.getParcelable<University>("data")!!
 
                 (getSystemService(NotificationManager::class.java) as NotificationManager)
@@ -215,8 +214,6 @@ class BackgroundDownloadingService : Service() {
         override fun handleMessage(msg: Message) {
             when (msg.what) {
                 DOWNLOADING_SERVICE_MSG_QUEUE -> serviceInstance.addUniversityToQueue(
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU)
-                        msg.data!!.getParcelable("data", University::class.java)!! else
                         msg.data!!.getParcelable<University>("data")!!
                 )
                 DOWNLOADING_SERVICE_MSG_DONE -> serviceInstance.setReadyToStop()

@@ -78,17 +78,11 @@ class TravelActivity : AppCompatActivity() {
         binding.taMapView.onCreate(savedInstanceState)
         binding.taMapView.setWatermarkPosition(WatermarkPlacement.BOTTOM_CENTER, 20)
 
-        university = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            if (savedInstanceState == null)
-                intent.extras?.getParcelable("university", University::class.java)!!
-            else
-                savedInstanceState.getParcelable("university", University::class.java)!!
-        } else {
+        university =
             if (savedInstanceState == null)
                 intent.extras?.getParcelable<University>("university") as University
             else
                 savedInstanceState.getParcelable<University>("university") as University
-        }
 
         binding.taContentSv.setMaxHeight(512);
         if (resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) {

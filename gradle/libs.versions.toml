@@ -1,13 +1,13 @@
 [versions]
 # AndroidX
-appcompat = "1.6.0-alpha04"
+appcompat = "1.4.2"
 preference = "1.2.0"
-fragment = "1.5.0-rc01"
-constraint_layout = "2.2.0-alpha02"
+fragment = "1.4.1"
+constraint_layout = "2.1.4"
 
 # Other
 picasso = "2.8"
-okhttp = "5.0.0-alpha.7"
+okhttp = "4.9.3"
 retrofit = "2.9.0"
 lottie = "5.2.0"
 avatarview = "1.0.5"
@@ -19,14 +19,14 @@ aws = "2.47.0"
 gson = "2.9.0"
 exoplayer = "2.17.1"
 firebase = "30.1.0"
-material = "1.7.0-alpha02"
+material = "1.6.1"
 
 # Kotlin
-kotlin = "1.7.0-RC2"
-core_ktx = "1.9.0-alpha04"
+kotlin = "1.7.0"
+core_ktx = "1.8.0"
 
 # Build
-agp = "7.4.0-alpha03"
+agp = "7.2.1"
 ktlint = "0.45.2"
 
 # Test

@@ -9,7 +9,6 @@ plugins {
 
 android {
     compileSdk = libs.versions.compile.sdk.version.get().toInt()
-    compileSdkPreview = "Tiramisu"
 
     defaultConfig {
         minSdk = libs.versions.min.sdk.version.get().toInt()

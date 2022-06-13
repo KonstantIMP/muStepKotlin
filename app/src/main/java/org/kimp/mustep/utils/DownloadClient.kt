@@ -20,7 +20,7 @@ class DownloadClient {
             val response = client.newCall(request).execute()
 
             val sink = out.sink().buffer()
-            sink.writeAll(response.body.source())
+            sink.writeAll(response.body!!.source())
             sink.close()
 
             out.setReadable(true)
