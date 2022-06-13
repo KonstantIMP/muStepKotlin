@@ -22,6 +22,7 @@ import org.kimp.mustep.databinding.ViewNothingBinding
 import org.kimp.mustep.domain.Event
 import org.kimp.mustep.rest.MuStepServiceBuilder
 import org.kimp.mustep.utils.AppCache
+import org.kimp.mustep.utils.DateFormatter
 import org.kimp.mustep.utils.PreferencesData
 import retrofit2.Call
 import retrofit2.Callback
@@ -61,16 +62,11 @@ class EventsCardViewAdapter(
 
         holder.eventGuideName!!.text = events[position].guide.getTranslatedValue()
         
-        holder.eventDateChip!!.text = String.format("%02d.%02d.%d - %02d:%02d",
-            events[position].date.day,
-            events[position].date.mounth,
-            events[position].date.year,
-            events[position].time.hours,
-            events[position].time.minutes
-        )
+        holder.eventDateChip!!.text = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.SHORT)
+            .format(DateFormatter.toAndroidDate(events[position].date, events[position].time))
 
         val nameParts = events[position].guide.getTranslatedValue().split("\\s*")
-        var nameInitials = StringBuilder()
+        val nameInitials = StringBuilder()
         for (part in nameParts) if (part.isNotEmpty()) nameInitials.append(part[0])
 
         holder.eventGuideAvatar!!.avatarInitials = nameInitials.toString().uppercase()
