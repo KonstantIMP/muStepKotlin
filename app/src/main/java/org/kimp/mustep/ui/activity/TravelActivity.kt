@@ -84,9 +84,10 @@ class TravelActivity : AppCompatActivity() {
             else
                 savedInstanceState.getParcelable<University>("university") as University
 
-        binding.taContentSv.setMaxHeight(512);
+        binding.taContentSv.setMaxHeight(resources.displayMetrics.heightPixels * 6 / 10);
         if (resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) {
-            binding.taContentSv.setMaxHeight(256);
+            binding.taContentSv.setMaxHeight(min(resources.displayMetrics.widthPixels * 3 / 10,
+                resources.displayMetrics.heightPixels * 3 / 10));
         }
 
         loadUniversityData()
