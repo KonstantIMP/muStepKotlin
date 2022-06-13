@@ -23,7 +23,7 @@
         <service
             android:name=".utils.service.BackgroundDownloadingService"
             android:enabled="true"
-            android:exported="false"></service>
+            android:exported="false" />
         <service
             android:name=".utils.service.MediaPoolService"
             android:enabled="true"
@@ -53,6 +53,10 @@
             android:exported="false" />
         <activity
             android:name=".ui.activity.TravelActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".ui.activity.EventsActivity"
             android:exported="false" />
     </application>
 

@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/Widget.Material3.CardView.Filled"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="8dp"
+    app:cardCornerRadius="15dp">
+
+    <LinearLayout
+        android:layout_marginStart="12dp"
+        android:layout_marginEnd="8dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/ecv_event_name_msg"
+                android:layout_width="0dp"
+                android:layout_weight="11"
+                tools:text="Name of the event"
+                android:maxLines="1"
+                android:ellipsize="end"
+                android:singleLine="true"
+                android:textStyle="bold"
+                android:textSize="14sp"
+                android:layout_gravity="center"
+                android:layout_marginStart="4dp"
+                android:layout_height="wrap_content" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/ecv_event_users_chip"
+                android:layout_width="0dp"
+                android:layout_weight="3"
+                android:layout_height="44dp"
+                app:chipCornerRadius="8dp"
+                android:checkable="false"
+                android:gravity="center"
+                tools:text="10 / 10"
+                android:textStyle="bold|italic"
+                android:textSize="14sp"
+                style="@style/Widget.Material3.Chip.Suggestion.Elevated"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="-8dp"
+            android:baselineAligned="false">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_weight="11"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <io.getstream.avatarview.AvatarView
+                    android:id="@+id/ecv_guide_avatar"
+                    android:layout_marginTop="4dp"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    app:avatarViewInitialsBackgroundColor="@android:color/transparent"
+                    app:avatarViewBorderColor="?attr/colorOnBackground"
+                    app:avatarViewBorderWidth="2dp"
+                    app:avatarViewInitialsTextStyle="italic"
+                    app:avatarViewInitialsTextColor="?attr/colorOnBackground"
+                    app:avatarViewInitials="GU"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:orientation="vertical"
+                    android:layout_marginStart="8dp">
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/ecv_guide_name_msg"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        tools:text="Guava Utrashmana"
+                        android:textSize="11sp"
+                        android:textStyle="bold"/>
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/ecv_guide_name_msg"
+                        android:textSize="8sp"
+                        android:textStyle="italic"
+                        android:layout_marginTop="-4dp"
+                        tools:ignore="SmallSp" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_weight="3"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_gravity="center|end"
+                android:gravity="end">
+
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/ecv_ru_img"
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    app:srcCompat="@raw/russia" />
+
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/ecv_zh_img"
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    app:srcCompat="@raw/china"
+                    android:layout_marginStart="12dp"/>
+
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/ecv_en_img"
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    android:layout_marginStart="12dp"
+                    app:srcCompat="@raw/usa" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <com.google.android.material.circularreveal.CircularRevealFrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/ecv_date_chip"
+                android:layout_width="wrap_content"
+                app:chipCornerRadius="8dp"
+                style="@style/Widget.Material3.Chip.Suggestion.Elevated"
+                tools:text="10 October 2022 at 11:30"
+                android:layout_height="wrap_content"
+                android:checkable="false"
+                android:layout_gravity="center|start"/>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/ecv_register_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/ecv_register"
+                style="@style/Widget.Material3.Button.TextButton.Dialog.Icon"
+                android:layout_gravity="center|end"
+                app:icon="@drawable/ic_event"
+                app:iconGravity="textEnd"
+                android:layout_marginEnd="-8dp"/>
+
+        </com.google.android.material.circularreveal.CircularRevealFrameLayout>
+
+    </LinearLayout>
+
+</com.google.android.material.card.MaterialCardView>

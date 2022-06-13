@@ -15,11 +15,15 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.snackbar.Snackbar
+import com.google.firebase.auth.FirebaseAuth
 import com.squareup.picasso.Picasso
 import org.kimp.mustep.R
 import org.kimp.mustep.databinding.ViewUniversityCardBinding
 import org.kimp.mustep.domain.University
+import org.kimp.mustep.domain.User
+import org.kimp.mustep.ui.activity.EventsActivity
 import org.kimp.mustep.ui.activity.TravelActivity
+import org.kimp.mustep.ui.dialog.AuthDialog
 import org.kimp.mustep.utils.AppCache
 import org.kimp.mustep.utils.service.BackgroundDownloadingService
 import org.kimp.mustep.utils.service.DOWNLOADING_SERVICE_MSG_QUEUE
@@ -73,6 +77,31 @@ class UniversitiesCardViewAdapter(
             val mapIntent = Intent(it.context, TravelActivity::class.java)
             mapIntent.putExtra("university", universities[position])
             owner.startActivity(mapIntent)
+        }
+
+        holder.officialChip!!.setOnClickListener {
+            if (FirebaseAuth.getInstance().currentUser == null) {
+                val tempUni = universities[position]
+                Snackbar.make(
+                    owner, holder.officialChip!!, owner.resources.getString(R.string.ucv_login_require), Snackbar.LENGTH_LONG
+                ).setAction(R.string.ucv_auth) {
+                    val dialog = AuthDialog(owner)
+                    dialog.setOnAuthListener(object : AuthDialog.OnAuthCompleted {
+                        override fun authCompleted(user: User) {
+                            val eventsIntent = Intent(owner, EventsActivity::class.java)
+                            eventsIntent.putExtra("university", tempUni)
+                            owner.startActivity(eventsIntent)
+                        }
+                    })
+                    dialog.show()
+                }.show()
+
+                return@setOnClickListener
+            }
+
+            val eventsIntent = Intent(it.context, EventsActivity::class.java)
+            eventsIntent.putExtra("university", universities[position])
+            owner.startActivity(eventsIntent)
         }
 
         if (AppCache.isUniversityCached(universities[position].uid, owner)) {

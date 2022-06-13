@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">μStep</string>
+    <string name="preferences_general_section">Основные</string>
+    <string name="preferences_preferred_lang_pref">Предпочитаемый язык</string>
+    <string name="preferences_preferred_lang_pref_summary">Основной язык для загружаемой информации</string>
+    <string name="preferences_dynamic_colors_pref">Поддержка динамического оформления</string>
+    <string name="preferences_dynamic_colors_pref_summary">Цвет акцента будет зависеть от обоев рабочего стола</string>
+    <string name="preferences_remove_cached_pref">Очистить кеш</string>
+    <string name="preferences_remove_cached_pref_summary">Удалить все ранее загруженные данные</string>
+    <string name="fmm_start_btn_label">Начать</string>
+    <string name="fmm_settings_btn_label">Настройки</string>
+    <string name="ucv_start_btn">Поехали!</string>
+    <string name="ucv_official_chip">Оффициальный</string>
+    <string name="ucv_state_download">Загрузить</string>
+    <string name="ucv_state_downloaded">Загружено</string>
+    <string name="ta_back_msg">Назад</string>
+    <string name="ta_choose_point">Выберите точку, чтобы начать</string>
+    <string name="service_downloading">Загрузка...</string>
+    <string name="service_ready">Готов к загрузке</string>
+    <string name="error_preview">Что-то пошло не так:</string>
+    <string name="cache_warn">Не закрывайте приложение</string>
+    <string name="ad_welcome_msg">Привет!</string>
+    <string name="ad_has_account">Уже есть аккаунт? Войдите</string>
+    <string name="ad_do_not_have_account">Нет учетной записи? Создайте</string>
+    <string name="ad_lets_go">Поехали!</string>
+    <string name="ad_name_surname_hint">Введите ваше имя</string>
+    <string name="ad_email_hint">Электронная почта</string>
+    <string name="ad_password_hint">Пароль</string>
+    <string name="pa_auth_btn">Войдите или создайте аккаунт</string>
+    <string name="pa_auth_success">Авторизация успешна</string>
+    <string name="pa_entry_edit">Должно быть заполнено</string>
+    <string name="pref_restart_need">Изменения вступят в силу после перезапуска</string>
+    <string name="pref_done">Успешно!</string>
+    <string name="ucv_events_btn">События</string>
+    <string name="nv_text">Пока что тут пусто. Загляните позже</string>
+    <string name="ecv_guide_name_msg">Экскурсовод</string>
+    <string name="ecv_register">Зарегестрироваться</string>
+    <string name="ecv_unregister">Отменить</string>
+    <string name="ecv_closed">Заполнено</string>
+    <string name="ecv_unregister_ok">Ваша запись была отменена</string>
+    <string name="ecv_register_ok">Регистрация успешна</string>
+    <string name="ucv_login_require">Авторизуйтесь, чтобы получить доступ к событиям</string>
+    <string name="ucv_auth">ВОЙТИ</string>
+</resources>

@@ -1,5 +1,6 @@
 package org.kimp.mustep.rest
 
+import org.kimp.mustep.domain.Event
 import org.kimp.mustep.domain.Floor
 import org.kimp.mustep.domain.University
 import org.kimp.mustep.domain.User
@@ -25,4 +26,13 @@ interface MuStepService {
 
     @POST("user/{uid}/avatar")
     fun updateAvatar(@Path("uid") uid: String, @Query("path") avatarPath: String) : Call<Boolean>
+    
+    @GET("event/{uni}")
+    fun getEvents(@Path("uni") uni: String) : Call<List<Event>>
+
+    @POST("event/{event}/register")
+    fun registerToEvent(@Path("event") event: String, @Query("user") user: String) : Call<Void>
+
+    @POST("event/{event}/unregister")
+    fun unregisterFromEvent(@Path("event") event: String, @Query("user") user: String) : Call<Void>
 }

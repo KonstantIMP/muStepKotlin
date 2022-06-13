@@ -64,9 +64,8 @@ class AuthDialog(context: Context) : Dialog(context) {
         binding.adMoverTv.minHeight = binding.adPassIl.height
         binding.adMoverTv.maxHeight = binding.adPassIl.height
 
-        binding.adAuthTypeMsg.text = if (isSignUp)
-            context.resources.getString(R.string.ad_has_account) else
-                context.resources.getString(R.string.ad_do_not_have_account)
+        binding.adAuthTypeMsg.text = if (isSignUp) context.resources.getString(R.string.ad_do_not_have_account) else
+            context.resources.getString(R.string.ad_has_account)
 
         val fadeSlideAnimation = AnimationUtils.loadAnimation(
             context, if (isSignUp) R.anim.fade_slide_out else R.anim.fade_slide_in
@@ -133,7 +132,7 @@ class AuthDialog(context: Context) : Dialog(context) {
                     context, binding.root,
                     String.format("%s %s", context.getString(R.string.error_preview), it.localizedMessage), Snackbar.LENGTH_LONG
                 ).show()
-                setLayoutState(false)
+                setLayoutState(true)
             }.addOnSuccessListener {
                 val newUser = User()
                 newUser.uid = it.user!!.uid
@@ -154,7 +153,7 @@ class AuthDialog(context: Context) : Dialog(context) {
                                     context, binding.root,
                                     String.format("%s %s", context.getString(R.string.error_preview), t.localizedMessage), Snackbar.LENGTH_LONG
                                 ).show()
-                                setLayoutState(false)
+                                setLayoutState(true)
                             }
                         }
                     )
@@ -171,7 +170,7 @@ class AuthDialog(context: Context) : Dialog(context) {
                     context, binding.root,
                     String.format("%s %s", context.getString(R.string.error_preview), it.localizedMessage), Snackbar.LENGTH_LONG
                 ).show()
-                setLayoutState(false)
+                setLayoutState(true)
             }.addOnSuccessListener {
                 MuStepServiceBuilder.build()
                     .getUser(it.user!!.uid)
@@ -187,7 +186,7 @@ class AuthDialog(context: Context) : Dialog(context) {
                                     context, binding.root,
                                     String.format("%s %s", context.getString(R.string.error_preview), t.localizedMessage), Snackbar.LENGTH_LONG
                                 ).show()
-                                setLayoutState(false)
+                                setLayoutState(true)
                             }
                         }
                     )

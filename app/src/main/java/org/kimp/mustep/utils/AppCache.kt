@@ -13,6 +13,7 @@ import com.google.gson.GsonBuilder
 import java.io.File
 import java.lang.reflect.Type
 import java.nio.file.Files
+import org.kimp.mustep.domain.Event
 import org.kimp.mustep.domain.Floor
 import org.kimp.mustep.domain.University
 
@@ -20,6 +21,7 @@ object AppCache {
     const val IMAGE_CACHE_SIZE: Long = 32 * 1024 * 1024
     private const val DATA_CACHE_SIZE: Int = 16 * 1024 * 1024
 
+    private var eventsCache: LruCache<String, List<Event>> = LruCache(DATA_CACHE_SIZE)
     private var floorCache: LruCache<String, List<Floor>> = LruCache(DATA_CACHE_SIZE)
 
     fun getCacheSupportUri(relativePath: String, context: Context): Uri {
@@ -60,6 +62,12 @@ object AppCache {
             }
         }
     }
+
+    fun putEvents(uid: String, events: List<Event>) {
+        eventsCache.put(uid, events)
+    }
+
+    fun getEvents(uid: String) : List<Event>? = eventsCache.get(uid)
 
     fun putFloors(uid: String, floors: List<Floor>) {
         floorCache.put(uid, floors)

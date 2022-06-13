@@ -50,4 +50,14 @@
 
     <string name="pref_restart_need">Changes will be applied after app\'s restart</string>
     <string name="pref_done">All done!</string>
+    <string name="ucv_events_btn">Events</string>
+    <string name="nv_text">There\'s nothing here now. Check back later</string>
+    <string name="ecv_guide_name_msg">Guide\'s name</string>
+    <string name="ecv_register">Register</string>
+    <string name="ecv_unregister">Unregister</string>
+    <string name="ecv_closed">Full</string>
+    <string name="ecv_unregister_ok">Your registration has been canceled</string>
+    <string name="ecv_register_ok">Your were registered</string>
+    <string name="ucv_login_require">Log in to access the events</string>
+    <string name="ucv_auth">AUTH</string>
 </resources>

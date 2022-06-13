@@ -90,7 +90,7 @@ class PreferencesActivity : AppCompatActivity() {
         binding.paNameMsg.text = String.format("%s %s", user.name, user.surname)
 
         val nameParts = (user.name + " " + user.surname).split("\\s*")
-        var nameInitials = StringBuilder()
+        val nameInitials = StringBuilder()
         for (part in nameParts) if (part.isNotEmpty()) nameInitials.append(part[0])
 
         binding.paAvatarview.avatarInitials = nameInitials.toString().uppercase()
