@@ -60,4 +60,7 @@
     <string name="ecv_register_ok">Your were registered</string>
     <string name="ucv_login_require">Log in to access the events</string>
     <string name="ucv_auth">AUTH</string>
+
+    <string name="events_service_name">Events notifier</string>
+    <string name="events_service_body">Today at %1$s there will be an \"%2$s\" event. Come to the %3$s by the appointed time.</string>
 </resources>

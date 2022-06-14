@@ -42,4 +42,6 @@
     <string name="ecv_register_ok">Регистрация успешна</string>
     <string name="ucv_login_require">Авторизуйтесь, чтобы получить доступ к событиям</string>
     <string name="ucv_auth">ВОЙТИ</string>
+    <string name="events_service_name">Уведомления о событиях</string>
+    <string name="events_service_body">Сегодня в %1$s состоится событие \"%2$s\". Приходите по адресу %3$s к назначенному времени.</string>
 </resources>

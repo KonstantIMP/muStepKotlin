@@ -29,6 +29,8 @@
             android:enabled="true"
             android:exported="false" />
 
+        <receiver android:name=".utils.EventsNotifyReceiver" />
+
         <meta-data
             android:name="com.here.sdk.access_key_id"
             android:value="${HERE_MAPS_ACCESS_KEY_ID}" />

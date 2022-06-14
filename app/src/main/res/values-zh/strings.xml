@@ -42,4 +42,6 @@
     <string name="ecv_register_ok">您已注册</string>
     <string name="ucv_login_require">登录以访问事件</string>
     <string name="ucv_auth">认可</string>
+    <string name="events_service_name">事件通知</string>
+    <string name="events_service_body">今天将有一个\"%2$s \"活动在%1$s举行。在指定时间前到%3$s来。</string>
 </resources>

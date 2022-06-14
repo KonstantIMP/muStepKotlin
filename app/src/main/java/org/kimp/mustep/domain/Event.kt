@@ -1,5 +1,9 @@
 package org.kimp.mustep.domain
 
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
+
+@Parcelize
 data class Event (
     var uid: String = "",
     var university: String = "",
@@ -11,4 +15,4 @@ data class Event (
     var guide_avatar: String = "",
     var users_count: Int = 0,
     var users: List<String> = ArrayList()
-)
+) : Parcelable

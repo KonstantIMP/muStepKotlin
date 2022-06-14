@@ -31,13 +31,13 @@ class EventsActivity : AppCompatActivity() {
         binding.eaAddrMsg.text = university.address.getTranslatedValue()
 
         binding.eaEventsRv.layoutManager = LinearLayoutManager(this)
-        binding.eaEventsRv.adapter = EventsCardViewAdapter(ArrayList(), this)
+        binding.eaEventsRv.adapter = EventsCardViewAdapter(ArrayList(), university, this)
 
         eventsViewModel = ViewModelProvider(this)[EventsViewModel::class.java]
         eventsViewModel.loadEvents(university.uid)
         eventsViewModel.getEvents().observe(this) {
             binding.eaEventsRv.adapter =
-                EventsCardViewAdapter(it!!, this)
+                EventsCardViewAdapter(it!!, university, this)
         }
     }
 

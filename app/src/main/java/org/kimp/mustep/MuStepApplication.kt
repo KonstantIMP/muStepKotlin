@@ -48,7 +48,5 @@ class MuStepApplication : Application() {
                 .downloader(OkHttp3Downloader(this, AppCache.IMAGE_CACHE_SIZE))
                 .build()
         )
-
-        startService(Intent(this, BackgroundDownloadingService::class.java))
     }
 }

@@ -1,5 +1,10 @@
 package org.kimp.mustep.models
 
+import android.app.AlarmManager
+import android.app.PendingIntent
+import android.content.Context
+import android.content.Intent
+import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -20,9 +25,11 @@ import org.kimp.mustep.databinding.ViewEventCardBinding
 import org.kimp.mustep.databinding.ViewNothingBinding
 
 import org.kimp.mustep.domain.Event
+import org.kimp.mustep.domain.University
 import org.kimp.mustep.rest.MuStepServiceBuilder
 import org.kimp.mustep.utils.AppCache
 import org.kimp.mustep.utils.DateFormatter
+import org.kimp.mustep.utils.EventsNotifyReceiver
 import org.kimp.mustep.utils.PreferencesData
 import retrofit2.Call
 import retrofit2.Callback
@@ -31,8 +38,11 @@ import kotlin.streams.toList
 
 class EventsCardViewAdapter(
     private var events: List<Event>,
+    val university: University,
     private val owner: AppCompatActivity
 ) : RecyclerView.Adapter<ViewHolder>() {
+    val alarmManager = owner.getSystemService(Context.ALARM_SERVICE) as AlarmManager
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return if (events.isEmpty()) object : ViewHolder(
             ViewNothingBinding.inflate(
@@ -100,6 +110,10 @@ class EventsCardViewAdapter(
                     .enqueue(
                         object : Callback<Void> {
                             override fun onResponse(call: Call<Void>, response: Response<Void>) {
+                                alarmManager.cancel(
+                                    generatePendingIntent(event)
+                                )
+
                                 event.users = event.users.stream()
                                     .filter{ x -> x != FirebaseAuth.getInstance().currentUser!!.uid}
                                     .toList()
@@ -176,6 +190,14 @@ class EventsCardViewAdapter(
                                 ).show()
 
                                 setEventState(event, holder)
+
+                                alarmManager.set(
+                                    AlarmManager.RTC_WAKEUP,
+                                    DateFormatter.toAndroidDate(
+                                        event.date, event.time
+                                    ).time - 2 * 60 * 60 * 1000,
+                                    generatePendingIntent(event)
+                                )
                             }
 
                             override fun onFailure(call: Call<Void>, t: Throwable) {
@@ -194,6 +216,15 @@ class EventsCardViewAdapter(
                     )
             }
         }
+    }
+
+    private fun generatePendingIntent(event: Event) : PendingIntent {
+        val intent = Intent(owner, EventsNotifyReceiver::class.java)
+
+        intent.putExtra("uni", university)
+        intent.putExtra("event", event)
+
+        return PendingIntent.getBroadcast(owner, 0, intent, PendingIntent.FLAG_IMMUTABLE)
     }
 
     override fun getItemCount(): Int = kotlin.math.max(1, events.size)
