@@ -2,6 +2,7 @@ package org.kimp.mustep.models
 
 import android.content.ComponentName
 import android.content.Context.BIND_AUTO_CREATE
+import android.content.Context.MODE_PRIVATE
 import android.content.Intent
 import android.content.ServiceConnection
 import android.os.Bundle
@@ -25,6 +26,7 @@ import org.kimp.mustep.ui.activity.EventsActivity
 import org.kimp.mustep.ui.activity.TravelActivity
 import org.kimp.mustep.ui.dialog.AuthDialog
 import org.kimp.mustep.utils.AppCache
+import org.kimp.mustep.utils.PreferencesData
 import org.kimp.mustep.utils.service.BackgroundDownloadingService
 import org.kimp.mustep.utils.service.DOWNLOADING_SERVICE_MSG_QUEUE
 
@@ -73,6 +75,11 @@ class UniversitiesCardViewAdapter(
             .into(holder.headImage)
 
         holder.startBtn!!.setOnClickListener {
+            val pref = owner.getSharedPreferences(PreferencesData.BASE_PREFERENCES_NAME, MODE_PRIVATE)
+            if (pref.getBoolean(PreferencesData.AUTO_DOWNLOAD_PREF, true)) {
+                requestUniversityDownload(universities[position])
+            }
+
             val mapIntent = Intent(it.context, TravelActivity::class.java)
             mapIntent.putExtra("university", universities[position])
             owner.startActivity(mapIntent)
@@ -111,33 +118,41 @@ class UniversitiesCardViewAdapter(
             );
             holder.getBtn!!.setText(R.string.ucv_state_downloaded);
         } else {
+            val pref = owner.getSharedPreferences(PreferencesData.BASE_PREFERENCES_NAME, MODE_PRIVATE)
+            if (pref.getBoolean(PreferencesData.AUTO_DOWNLOAD_PREF, true)) return
+
             holder.getBtn!!.setOnClickListener {
                 it.isEnabled = false
-
-                if (mBound) {
-                    val message = Message()
-                    message.what = DOWNLOADING_SERVICE_MSG_QUEUE
-
-                    Bundle().apply {
-                        this.putParcelable("data", universities[position])
-                        message.data = this
-                    }
-
-                    try {
-                        mService?.send(message)
-                    } catch (e: Exception) {
-                        e.printStackTrace()
-                    }
-
-                    Snackbar.make(
-                        it, R.string.cache_warn, Snackbar.LENGTH_LONG
-                    ).show();
-                }
+                requestUniversityDownload(universities[position], it)
             }
         }
     }
 
     override fun getItemCount(): Int = universities.size
+
+    private fun requestUniversityDownload(uni: University, parent: View? = null) {
+        if (mBound) {
+            val message = Message()
+            message.what = DOWNLOADING_SERVICE_MSG_QUEUE
+
+            Bundle().apply {
+                this.putParcelable("data", uni)
+                message.data = this
+            }
+
+            try {
+                mService?.send(message)
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+
+            if (parent != null) {
+                Snackbar.make(
+                    parent, R.string.cache_warn, Snackbar.LENGTH_LONG
+                ).show();
+            }
+        }
+    }
 
     private val connection: ServiceConnection = object : ServiceConnection {
         override fun onServiceConnected(
