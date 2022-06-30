@@ -78,16 +78,24 @@ class TravelActivity : AppCompatActivity() {
         binding.taMapView.onCreate(savedInstanceState)
         binding.taMapView.setWatermarkPosition(WatermarkPlacement.BOTTOM_CENTER, 20)
 
-        university =
-            if (savedInstanceState == null)
-                intent.extras?.getParcelable<University>("university") as University
-            else
-                savedInstanceState.getParcelable<University>("university") as University
-
         binding.taContentSv.setMaxHeight(resources.displayMetrics.heightPixels * 6 / 10);
         if (resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) {
             binding.taContentSv.setMaxHeight(min(resources.displayMetrics.widthPixels * 3 / 10,
                 resources.displayMetrics.heightPixels * 3 / 10));
+        }
+
+        if (savedInstanceState == null) {
+            university = intent.extras?.getParcelable<University>("university") as University
+        } else {
+            university = savedInstanceState.getParcelable<University>("university") as University
+
+            activePoint = savedInstanceState.getParcelable<Point>("point") as Point
+            activeFloor = Floor(savedInstanceState.getLong("floor"))
+            soundSelected = savedInstanceState.getBoolean("state", false)
+        }
+
+        Intent(this, MediaPoolService::class.java).also { intent ->
+            bindService(intent, connection, Context.BIND_AUTO_CREATE)
         }
 
         loadUniversityData()
@@ -106,6 +114,7 @@ class TravelActivity : AppCompatActivity() {
             if (isChecked) {
                 val floor =
                     (group.findViewById(checkedId) as MaterialButton).text.toString()
+                unloadPoint()
                 loadFloor(Integer.valueOf(floor).toLong())
             }
         }
@@ -183,11 +192,16 @@ class TravelActivity : AppCompatActivity() {
         loadFloorButtons()
         loadMapScene()
 
-        loadFloor(
-            floors.stream().map { (number): Floor -> number }.sorted().collect(
-                Collectors.toList()
-            )[0]
-        )
+        if (this::activePoint.isInitialized) {
+            loadFloor(activeFloor.number)
+            loadPoint(activePoint.number)
+        } else {
+            loadFloor(
+                floors.stream().map { (number): Floor -> number }.sorted().collect(
+                    Collectors.toList()
+                )[0]
+            )
+        }
     }
 
     private fun loadFloorButtons() {
@@ -229,7 +243,6 @@ class TravelActivity : AppCompatActivity() {
     }
 
     private fun loadFloor(number: Long) {
-        unloadPoint()
         for (mapMarker in markers) binding.taMapView.mapScene.removeMapMarker(mapMarker)
         markers = ArrayList()
 
@@ -361,13 +374,11 @@ class TravelActivity : AppCompatActivity() {
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         outState.putParcelable("university", university)
-    }
 
-    override fun onStart() {
-        super.onStart()
-
-        Intent(this, MediaPoolService::class.java).also { intent ->
-            bindService(intent, connection, Context.BIND_AUTO_CREATE)
+        if (this::activePoint.isInitialized) {
+            outState.putParcelable("point", activePoint)
+            outState.putLong("floor", activeFloor.number)
+            outState.putBoolean("state", soundSelected)
         }
     }
 
@@ -398,6 +409,11 @@ class TravelActivity : AppCompatActivity() {
             val binder = service as MediaPoolService.MediaPoolBinder
             mService = binder.getService()
             mBound = true
+
+            if (mService.isPlaying()) {
+                binding.taPlayPauseBtn.icon =
+                    ResourcesCompat.getDrawable(resources, R.drawable.ic_pause, theme)
+            }
         }
 
         override fun onServiceDisconnected(arg0: ComponentName) {

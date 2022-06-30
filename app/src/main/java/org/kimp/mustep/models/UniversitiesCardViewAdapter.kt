@@ -119,7 +119,10 @@ class UniversitiesCardViewAdapter(
             holder.getBtn!!.setText(R.string.ucv_state_downloaded);
         } else {
             val pref = owner.getSharedPreferences(PreferencesData.BASE_PREFERENCES_NAME, MODE_PRIVATE)
-            if (pref.getBoolean(PreferencesData.AUTO_DOWNLOAD_PREF, true)) return
+            if (pref.getBoolean(PreferencesData.AUTO_DOWNLOAD_PREF, true)) {
+                holder.getBtn!!.visibility = View.GONE
+                return
+            }
 
             holder.getBtn!!.setOnClickListener {
                 it.isEnabled = false
