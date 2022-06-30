@@ -154,6 +154,8 @@ class PreferencesActivity : AppCompatActivity() {
 
             avatarResultLauncher.launch(intent)
         }
+
+        binding.paLogoutBtn.setOnClickListener { finish() }
     }
 
     private val avatarResultLauncher = registerForActivityResult(
