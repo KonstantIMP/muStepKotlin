@@ -19,20 +19,23 @@ class MuStepApplication : Application() {
         super.onCreate()
 
         val pref = getSharedPreferences(PreferencesData.BASE_PREFERENCES_NAME, MODE_PRIVATE)
+        val editor = pref.edit()
+
         if (!pref.contains(PreferencesData.PREFERRED_LANGUAGE_PREF)) {
-            val editor = pref.edit()
             when (Locale.getDefault().language) {
                 "ru" -> editor.putString(PreferencesData.PREFERRED_LANGUAGE_PREF, "ru")
                 "zh" -> editor.putString(PreferencesData.PREFERRED_LANGUAGE_PREF, "zh")
                 else -> editor.putString(PreferencesData.PREFERRED_LANGUAGE_PREF, "en")
             }
-            editor.apply()
         }
         if (!pref.contains(PreferencesData.DYNAMIC_COLORS_PREF)) {
-            val editor = pref.edit()
             editor.putBoolean(PreferencesData.DYNAMIC_COLORS_PREF, false)
-            editor.apply()
         }
+        if (!pref.contains(PreferencesData.AUTO_DOWNLOAD_PREF)) {
+            editor.putBoolean(PreferencesData.AUTO_DOWNLOAD_PREF, true)
+        }
+
+        editor.apply()
 
         if (pref.getBoolean(PreferencesData.DYNAMIC_COLORS_PREF, true)) {
             DynamicColors.applyToActivitiesIfAvailable(this)

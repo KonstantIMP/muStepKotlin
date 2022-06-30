@@ -44,4 +44,6 @@
     <string name="ucv_auth">认可</string>
     <string name="events_service_name">事件通知</string>
     <string name="events_service_body">今天将有一个\"%2$s \"活动在%1$s举行。在指定时间前到%3$s来。</string>
+    <string name="preferences_auto_download_pref">自动数据缓存</string>
+    <string name="preferences_auto_downloads_pref_summary">如果启用，数据将被自动保存到应用程序的缓存中。</string>
 </resources>
