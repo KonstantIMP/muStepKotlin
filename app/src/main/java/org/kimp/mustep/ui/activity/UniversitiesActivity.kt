@@ -9,13 +9,11 @@ import android.os.Bundle
 import android.os.IBinder
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.res.ResourcesCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import org.kimp.mustep.R
 import org.kimp.mustep.databinding.ActivityUniversitiesBinding
-import org.kimp.mustep.models.UniversitiesCardViewAdapter
-import org.kimp.mustep.models.UniversitiesViewModel
+import org.kimp.mustep.models.university.UniversitiesCardViewAdapter
+import org.kimp.mustep.models.university.UniversitiesViewModel
 import org.kimp.mustep.utils.service.MediaPoolService
 
 class UniversitiesActivity() : AppCompatActivity() {

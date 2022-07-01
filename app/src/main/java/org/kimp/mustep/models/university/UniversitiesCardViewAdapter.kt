@@ -1,4 +1,4 @@
-package org.kimp.mustep.models
+package org.kimp.mustep.models.university
 
 import android.content.ComponentName
 import android.content.Context.BIND_AUTO_CREATE

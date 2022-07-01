@@ -1,0 +1,53 @@
+{
+  "version": "1.0.0",
+  "changes": [
+    {
+      "desc": {
+        "en": "Select any point on the map and all information about it will appear on the screen at once",
+        "ru": "Выбирайте любую точку на карте и вся информация о ней сразу появится на экране",
+        "zh": "选择地图上的任何一点，关于它的所有信息将立即出现在屏幕上"
+      },
+      "image": "map"
+    },
+    {
+      "desc": {
+        "en": "Building data is now loaded and saved automatically! (The function can be disabled in the settings)",
+        "ru": "Теперь данные о здания загружаются и сохраняются автоматически! (Функцию можно отключить в настройках)",
+        "zh": "建筑数据现在可以自动下载和保存 (该功能可在设置中禁用）。"
+      },
+      "image": "cloud"
+    },
+    {
+      "desc": {
+        "en": "You can choose one of the 3 available languages for downloading information about objects: Russian, English, or Simplified Chinese",
+        "ru": "Вы можете выбрать один из 3 доступных языков для загрузки информации об объектах: русский, английский или упрощенный китайский",
+        "zh": "你可以选择3种可用的语言来下载对象信息：俄语、英语或简体中文。"
+      },
+      "image": "lang"
+    },
+    {
+      "desc": {
+        "en": "On devices with Android 12 and above, dynamic design is available. Feel the power of color!",
+        "ru": "На устройствах с Android 12 и выше доступно динамическое оформление. Почувствуйте силу цвета!",
+        "zh": "动态设计适用于安卓12及以上系统的设备。感受色彩的力量!"
+      },
+      "image": "color"
+    },
+    {
+      "desc": {
+        "en": "Now you can create your own account so you can use it to register for events",
+        "ru": "Теперь вы можете создать собственную учётную запись, чтобы с ее помощью регистрироваться на мероприятия",
+        "zh": "你现在可以创建你自己的账户，这样你就可以用它来注册活动。"
+      },
+      "image": "auth"
+    },
+    {
+      "desc": {
+        "en": "And, of course, we added a kitty cat, because it would be sad without the kitty cat)",
+        "ru": "И конечно же мы добавили котика, потому что без котика было бы грустно)",
+        "zh": "当然，我们还增加了一只小猫，因为如果没有小猫，就会很难过)"
+      },
+      "image": "cat"
+    }
+  ]
+}

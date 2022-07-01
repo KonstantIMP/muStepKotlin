@@ -1,4 +1,4 @@
-package org.kimp.mustep.models
+package org.kimp.mustep.models.event
 
 import android.app.Application
 import android.util.Log

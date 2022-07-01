@@ -1,11 +1,9 @@
-package org.kimp.mustep.models
+package org.kimp.mustep.models.event
 
 import android.app.AlarmManager
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
-import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,10 +14,6 @@ import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import io.getstream.avatarview.coil.loadImage
 import java.text.DateFormat
-import java.text.SimpleDateFormat
-import java.util.Calendar
-import java.util.Date
-import java.util.Locale
 import org.kimp.mustep.R
 import org.kimp.mustep.databinding.ViewEventCardBinding
 import org.kimp.mustep.databinding.ViewNothingBinding
@@ -30,7 +24,6 @@ import org.kimp.mustep.rest.MuStepServiceBuilder
 import org.kimp.mustep.utils.AppCache
 import org.kimp.mustep.utils.DateFormatter
 import org.kimp.mustep.utils.EventsNotifyReceiver
-import org.kimp.mustep.utils.PreferencesData
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response

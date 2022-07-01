@@ -1,6 +1,5 @@
 package org.kimp.mustep.ui.dialog
 
-import android.app.Dialog
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
@@ -9,14 +8,20 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.Window
 import androidx.fragment.app.DialogFragment
+import androidx.lifecycle.ViewModelProvider
 import org.kimp.mustep.databinding.DialogChangelogBinding
+import org.kimp.mustep.models.changelog.ChangelogViewListener
+import org.kimp.mustep.models.changelog.ChangelogViewModel
 
 class ChangelogDialog : DialogFragment() {
     lateinit var binding: DialogChangelogBinding
 
+    lateinit var viewModel: ChangelogViewModel
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        viewModel = ViewModelProvider(this)[ChangelogViewModel::class.java]
         isCancelable = true
     }
 
@@ -25,17 +30,23 @@ class ChangelogDialog : DialogFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        dialog?.requestWindowFeature(Window.FEATURE_NO_TITLE)
+        binding = DialogChangelogBinding.inflate(inflater, container, false)
 
+        binding.root.minWidth = requireContext().resources.displayMetrics.widthPixels * 9 / 10
+        binding.root.minHeight = requireContext().resources.displayMetrics.heightPixels * 9 / 10
+
+        dialog?.requestWindowFeature(Window.FEATURE_NO_TITLE)
         dialog?.window?.setBackgroundDrawable(
             ColorDrawable(Color.TRANSPARENT)
         )
 
-        binding = DialogChangelogBinding.inflate(
-            inflater, container, false
-        )
+        viewModel.getChanges().observe(viewLifecycleOwner) {
+            if (it.isEmpty()) return@observe
 
-        binding.adTitle.minWidth = requireContext().resources.displayMetrics.widthPixels * 90 / 100
+            val viewListener = ChangelogViewListener(it, requireActivity())
+            binding.adChangesCarousel.setViewListener(viewListener)
+            binding.adChangesCarousel.pageCount = it.size
+        }
 
         return binding.root
     }

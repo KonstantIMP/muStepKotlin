@@ -1,4 +1,4 @@
-package org.kimp.mustep.models
+package org.kimp.mustep.models.university
 
 import org.kimp.mustep.R
 import android.view.View

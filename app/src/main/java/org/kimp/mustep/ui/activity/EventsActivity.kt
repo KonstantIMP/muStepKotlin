@@ -1,14 +1,13 @@
 package org.kimp.mustep.ui.activity
 
-import android.os.Build
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import org.kimp.mustep.databinding.ActivityEventsBinding
 import org.kimp.mustep.domain.University
-import org.kimp.mustep.models.EventsCardViewAdapter
-import org.kimp.mustep.models.EventsViewModel
+import org.kimp.mustep.models.event.EventsCardViewAdapter
+import org.kimp.mustep.models.event.EventsViewModel
 
 class EventsActivity : AppCompatActivity() {
     private lateinit var binding: ActivityEventsBinding
