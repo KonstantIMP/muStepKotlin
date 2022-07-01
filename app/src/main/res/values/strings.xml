@@ -65,4 +65,5 @@
 
     <string name="events_service_name">Events notifier</string>
     <string name="events_service_body">Today at %1$s there will be an \"%2$s\" event. Come to the %3$s by the appointed time.</string>
+    <string name="ad_title_msg">What\'s new?</string>
 </resources>

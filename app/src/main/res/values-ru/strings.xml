@@ -46,4 +46,5 @@
     <string name="events_service_body">Сегодня в %1$s состоится событие \"%2$s\". Приходите по адресу %3$s к назначенному времени.</string>
     <string name="preferences_auto_download_pref">Автоматическое кэширование</string>
     <string name="preferences_auto_downloads_pref_summary">Если включено, то данные будут автоматически сохраняться в кеш приложения</string>
+    <string name="ad_title_msg">Что нового?</string>
 </resources>
