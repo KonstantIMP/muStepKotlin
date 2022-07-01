@@ -11,6 +11,7 @@ okhttp = "4.9.3"
 retrofit = "2.9.0"
 lottie = "5.2.0"
 avatarview = "1.0.5"
+carouselview = "d46b3c394f"
 
 # Amazon
 aws = "2.47.0"
@@ -56,6 +57,7 @@ other_retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "re
 other_retrofit_gson = { module = "com.squareup.retrofit2:converter-gson", version.ref = "gson" }
 other_okhttp = { module = "com.squareup.okhttp3:okhttp", version.ref = "okhttp" }
 other_lottie = { module = "com.airbnb.android:lottie", version.ref = "lottie" }
+other_carouselview = { module = "com.github.sayyam:carouselview", version.ref = "carouselview" }
 other_avatarview = { module = "io.getstream:avatarview-coil", version.ref = "avatarview" }
 google_exoplayer = { module = "com.google.android.exoplayer:exoplayer", version.ref = "exoplayer" }
 google_firebase_bom = { module = "com.google.firebase:firebase-bom", version.ref = "firebase" }
