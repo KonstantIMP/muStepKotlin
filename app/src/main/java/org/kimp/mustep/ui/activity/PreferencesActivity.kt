@@ -120,7 +120,7 @@ class PreferencesActivity : AppCompatActivity() {
 
     private fun connectHandlers() {
         binding.paAuthBtn.setOnClickListener {
-            val dialog = AuthDialog(this)
+            val dialog = AuthDialog()
             dialog.setOnAuthListener(object : AuthDialog.OnAuthCompleted {
                 override fun authCompleted(user: User) {
                     Snackbar.make(
@@ -132,7 +132,7 @@ class PreferencesActivity : AppCompatActivity() {
                 }
 
             })
-            dialog.show()
+            dialog.show(supportFragmentManager, "auth_dialog")
         }
 
         binding.paLogoutBtn.setOnClickListener {

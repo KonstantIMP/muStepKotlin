@@ -1,7 +1,5 @@
 package org.kimp.mustep.ui.dialog
 
-import android.app.Dialog
-import android.content.Context
 import android.content.Context.MODE_PRIVATE
 import android.content.res.Configuration
 import android.graphics.Color
@@ -13,6 +11,7 @@ import android.view.ViewGroup
 import android.view.Window
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
+import androidx.fragment.app.DialogFragment
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.google.gson.GsonBuilder
@@ -25,7 +24,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class AuthDialog(context: Context) : Dialog(context) {
+class AuthDialog : DialogFragment() {
     private lateinit var binding: DialogAuthBinding
 
     private var callbackListener: OnAuthCompleted? = null
@@ -42,20 +41,38 @@ class AuthDialog(context: Context) : Dialog(context) {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        requestWindowFeature(Window.FEATURE_NO_TITLE)
-        setCancelable(true)
+        isCancelable = true
+    }
 
-        window?.setBackgroundDrawable(
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        binding = DialogAuthBinding.inflate(inflater, container, false)
+
+        binding.root.minWidth = requireContext().resources.displayMetrics.widthPixels * 9 / 10
+        binding.root.minHeight = requireContext().resources.displayMetrics.heightPixels * 9 / 10
+        connectHandlers()
+
+        requireDialog().requestWindowFeature(Window.FEATURE_NO_TITLE)
+        requireDialog().window?.setBackgroundDrawable(
             ColorDrawable(Color.TRANSPARENT)
         )
 
-        binding = DialogAuthBinding.inflate(LayoutInflater.from(context))
-        setContentView(binding.root)
+        binding.adNameIt.setText(savedInstanceState?.getString("name", ""))
+        binding.adEmailIt.setText(savedInstanceState?.getString("email", ""))
+        binding.adPassIt.setText(savedInstanceState?.getString("pass", ""))
 
-        binding.root.minWidth = context.resources.displayMetrics.widthPixels * 9 / 10
-        binding.root.minHeight = context.resources.displayMetrics.heightPixels * 9 / 10
+        return binding.root
+    }
 
-        connectHandlers()
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+
+        outState.putString("name", binding.adNameIt.text.toString())
+        outState.putString("email", binding.adEmailIt.text.toString())
+        outState.putString("pass", binding.adPassIt.text.toString())
     }
 
     private fun connectHandlers() {
@@ -67,8 +84,8 @@ class AuthDialog(context: Context) : Dialog(context) {
         binding.adMoverTv.minHeight = binding.adPassIl.height
         binding.adMoverTv.maxHeight = binding.adPassIl.height
 
-        binding.adAuthTypeMsg.text = if (isSignUp) context.resources.getString(R.string.ad_do_not_have_account) else
-            context.resources.getString(R.string.ad_has_account)
+        binding.adAuthTypeMsg.text = if (isSignUp) requireContext().resources.getString(R.string.ad_do_not_have_account) else
+            requireContext().resources.getString(R.string.ad_has_account)
 
         val fadeSlideAnimation = AnimationUtils.loadAnimation(
             context, if (isSignUp) R.anim.fade_slide_out else R.anim.fade_slide_in
@@ -93,7 +110,7 @@ class AuthDialog(context: Context) : Dialog(context) {
 
         binding.adNameIl.startAnimation(fadeSlideAnimation)
 
-        if (context.resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT) {
+        if (requireContext().resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT) {
             binding.adMoverTv.startAnimation(slideAnimation)
             binding.adEmailIl.startAnimation(slideAnimation)
             binding.adPassIl.startAnimation(slideAnimation)
@@ -104,17 +121,17 @@ class AuthDialog(context: Context) : Dialog(context) {
         var incorrectInput = false
 
         if (binding.adEmailIt.text.toString().isEmpty()) {
-            binding.adEmailIl.error = context.getString(R.string.pa_entry_edit)
+            binding.adEmailIl.error = requireContext().getString(R.string.pa_entry_edit)
             incorrectInput = true
         }
 
         if (binding.adPassIt.text.toString().isEmpty()) {
-            binding.adPassIl.error = context.getString(R.string.pa_entry_edit)
+            binding.adPassIl.error = requireContext().getString(R.string.pa_entry_edit)
             incorrectInput = true
         }
 
         if (binding.adNameIt.text.toString().isEmpty() && isSignUp) {
-            binding.adNameIl.error = context.getString(R.string.pa_entry_edit)
+            binding.adNameIl.error = requireContext().getString(R.string.pa_entry_edit)
             incorrectInput = true
         }
 
@@ -132,8 +149,8 @@ class AuthDialog(context: Context) : Dialog(context) {
                 binding.adPassIt.text.toString()
             ).addOnFailureListener {
                 Snackbar.make(
-                    context, binding.root,
-                    String.format("%s %s", context.getString(R.string.error_preview), it.localizedMessage), Snackbar.LENGTH_LONG
+                    requireContext(), binding.root,
+                    String.format("%s %s", requireContext().getString(R.string.error_preview), it.localizedMessage), Snackbar.LENGTH_LONG
                 ).show()
                 setLayoutState(true)
             }.addOnSuccessListener {
@@ -153,8 +170,8 @@ class AuthDialog(context: Context) : Dialog(context) {
 
                             override fun onFailure(call: Call<User>, t: Throwable) {
                                 Snackbar.make(
-                                    context, binding.root,
-                                    String.format("%s %s", context.getString(R.string.error_preview), t.localizedMessage), Snackbar.LENGTH_LONG
+                                    requireContext(), binding.root,
+                                    String.format("%s %s", requireContext().getString(R.string.error_preview), t.localizedMessage), Snackbar.LENGTH_LONG
                                 ).show()
                                 setLayoutState(true)
                             }
@@ -170,8 +187,8 @@ class AuthDialog(context: Context) : Dialog(context) {
                 binding.adPassIt.text.toString()
             ).addOnFailureListener {
                 Snackbar.make(
-                    context, binding.root,
-                    String.format("%s %s", context.getString(R.string.error_preview), it.localizedMessage), Snackbar.LENGTH_LONG
+                    requireContext(), binding.root,
+                    String.format("%s %s", requireContext().getString(R.string.error_preview), it.localizedMessage), Snackbar.LENGTH_LONG
                 ).show()
                 setLayoutState(true)
             }.addOnSuccessListener {
@@ -186,8 +203,8 @@ class AuthDialog(context: Context) : Dialog(context) {
 
                             override fun onFailure(call: Call<User>, t: Throwable) {
                                 Snackbar.make(
-                                    context, binding.root,
-                                    String.format("%s %s", context.getString(R.string.error_preview), t.localizedMessage), Snackbar.LENGTH_LONG
+                                    requireContext(), binding.root,
+                                    String.format("%s %s", requireContext().getString(R.string.error_preview), t.localizedMessage), Snackbar.LENGTH_LONG
                                 ).show()
                                 setLayoutState(true)
                             }
@@ -197,7 +214,7 @@ class AuthDialog(context: Context) : Dialog(context) {
     }
 
     private fun completeAuth(user: User) {
-        val pref = context.getSharedPreferences(PreferencesData.BASE_PREFERENCES_NAME, MODE_PRIVATE)
+        val pref = requireContext().getSharedPreferences(PreferencesData.BASE_PREFERENCES_NAME, MODE_PRIVATE)
 
         val editor = pref.edit()
         editor.putString("user", GsonBuilder().create().toJson(user))
