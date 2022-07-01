@@ -60,7 +60,19 @@ class AuthDialog : DialogFragment() {
             ColorDrawable(Color.TRANSPARENT)
         )
 
+        binding.adNameIt.setText(savedInstanceState?.getString("name", ""))
+        binding.adEmailIt.setText(savedInstanceState?.getString("email", ""))
+        binding.adPassIt.setText(savedInstanceState?.getString("pass", ""))
+
         return binding.root
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+
+        outState.putString("name", binding.adNameIt.text.toString())
+        outState.putString("email", binding.adEmailIt.text.toString())
+        outState.putString("pass", binding.adPassIt.text.toString())
     }
 
     private fun connectHandlers() {
