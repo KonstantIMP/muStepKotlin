@@ -18,6 +18,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.gson.GsonBuilder
 import org.kimp.mustep.R
 import org.kimp.mustep.databinding.DialogAuthBinding
+import org.kimp.mustep.domain.AuthData
 import org.kimp.mustep.domain.User
 import org.kimp.mustep.rest.MuStepServiceBuilder
 import org.kimp.mustep.utils.PreferencesData
