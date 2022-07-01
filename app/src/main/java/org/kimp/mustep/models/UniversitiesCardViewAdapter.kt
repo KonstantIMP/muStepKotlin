@@ -91,7 +91,7 @@ class UniversitiesCardViewAdapter(
                 Snackbar.make(
                     owner, holder.officialChip!!, owner.resources.getString(R.string.ucv_login_require), Snackbar.LENGTH_LONG
                 ).setAction(R.string.ucv_auth) {
-                    val dialog = AuthDialog(owner)
+                    val dialog = AuthDialog()
                     dialog.setOnAuthListener(object : AuthDialog.OnAuthCompleted {
                         override fun authCompleted(user: User) {
                             val eventsIntent = Intent(owner, EventsActivity::class.java)
@@ -99,7 +99,7 @@ class UniversitiesCardViewAdapter(
                             owner.startActivity(eventsIntent)
                         }
                     })
-                    dialog.show()
+                    dialog.show(owner.supportFragmentManager, "auth_dialog")
                 }.show()
 
                 return@setOnClickListener
