@@ -426,6 +426,12 @@ class TravelActivity : AppCompatActivity() {
         override fun run() {
             if (mBound && soundSelected)
                 binding.taSoundSlider.value = mService.getProgress()
+            if (binding.taSoundSlider.value == 100.0f) {
+                mService.seekToProgress(0.0f);
+                mService.pause()
+                binding.taPlayPauseBtn.icon =
+                    ResourcesCompat.getDrawable(resources, R.drawable.ic_play, theme)
+            }
             soundProgressUpdateHandler.postDelayed(this, sliderUpdatePeriod)
         }
     }
