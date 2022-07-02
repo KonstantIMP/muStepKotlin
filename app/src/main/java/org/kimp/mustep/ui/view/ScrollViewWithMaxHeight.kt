@@ -5,7 +5,6 @@ import android.util.AttributeSet
 import android.util.Log
 import android.widget.ScrollView
 
-
 class ScrollViewWithMaxHeight : ScrollView {
     private var maxHeight = WITHOUT_MAX_HEIGHT_VALUE
 
@@ -21,8 +20,8 @@ class ScrollViewWithMaxHeight : ScrollView {
         var heightMeasureSpec = heightMeasureSpec
         try {
             var heightSize = MeasureSpec.getSize(heightMeasureSpec)
-            if (maxHeight != WITHOUT_MAX_HEIGHT_VALUE
-                && heightSize > maxHeight
+            if (maxHeight != WITHOUT_MAX_HEIGHT_VALUE &&
+                heightSize > maxHeight
             ) {
                 heightSize = maxHeight
             }

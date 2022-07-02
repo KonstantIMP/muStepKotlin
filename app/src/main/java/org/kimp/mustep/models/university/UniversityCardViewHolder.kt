@@ -1,13 +1,12 @@
 package org.kimp.mustep.models.university
 
-import org.kimp.mustep.R
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.chip.Chip
 import com.google.android.material.imageview.ShapeableImageView
 import com.google.android.material.textview.MaterialTextView
-
+import org.kimp.mustep.R
 
 class UniversityCardViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     var headImage: ShapeableImageView? = null

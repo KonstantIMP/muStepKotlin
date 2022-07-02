@@ -1,5 +1,4 @@
-import com.android.build.gradle.LibraryExtension
-import org.gradle.api.tasks.bundling.Jar
+
 
 /**
  * Precompiled script plugin from:
@@ -100,6 +99,5 @@ publishing {
         }
     }
 }
-
 
 val String.byProperty: String? get() = findProperty(this) as? String

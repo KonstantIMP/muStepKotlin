@@ -13,26 +13,26 @@ import retrofit2.http.Query
 
 interface MuStepService {
     @GET("university/available")
-    fun getAvailableUniversities(@Query("onlyOfficial") onlyOfficial: Boolean = false) : Call<List<University>>
+    fun getAvailableUniversities(@Query("onlyOfficial") onlyOfficial: Boolean = false): Call<List<University>>
 
     @GET("university/{uni}/data")
-    fun getUniversityData(@Path("uni") uni: String) : Call<List<Floor>>
+    fun getUniversityData(@Path("uni") uni: String): Call<List<Floor>>
 
     @POST("user/new")
-    fun newUser(@Body user: User) : Call<User>
+    fun newUser(@Body user: User): Call<User>
 
     @GET("user/{uid}")
-    fun getUser(@Path("uid") uid: String) : Call<User>
+    fun getUser(@Path("uid") uid: String): Call<User>
 
     @POST("user/{uid}/avatar")
-    fun updateAvatar(@Path("uid") uid: String, @Query("path") avatarPath: String) : Call<Boolean>
-    
+    fun updateAvatar(@Path("uid") uid: String, @Query("path") avatarPath: String): Call<Boolean>
+
     @GET("event/{uni}")
-    fun getEvents(@Path("uni") uni: String) : Call<List<Event>>
+    fun getEvents(@Path("uni") uni: String): Call<List<Event>>
 
     @POST("event/{event}/register")
-    fun registerToEvent(@Path("event") event: String, @Query("user") user: String) : Call<Void>
+    fun registerToEvent(@Path("event") event: String, @Query("user") user: String): Call<Void>
 
     @POST("event/{event}/unregister")
-    fun unregisterFromEvent(@Path("event") event: String, @Query("user") user: String) : Call<Void>
+    fun unregisterFromEvent(@Path("event") event: String, @Query("user") user: String): Call<Void>
 }

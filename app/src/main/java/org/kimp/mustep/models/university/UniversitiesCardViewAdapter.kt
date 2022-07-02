@@ -30,7 +30,6 @@ import org.kimp.mustep.utils.PreferencesData
 import org.kimp.mustep.utils.service.BackgroundDownloadingService
 import org.kimp.mustep.utils.service.DOWNLOADING_SERVICE_MSG_QUEUE
 
-
 class UniversitiesCardViewAdapter(
     private val universities: List<University>,
     private val owner: AppCompatActivity
@@ -42,20 +41,23 @@ class UniversitiesCardViewAdapter(
         val intent = Intent(owner, BackgroundDownloadingService::class.java)
 
         owner.bindService(
-            intent, connection, BIND_AUTO_CREATE
+            intent,
+            connection,
+            BIND_AUTO_CREATE
         )
     }
 
     fun unbindFromService() {
         owner.unbindService(connection)
-        mBound = false;
+        mBound = false
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UniversityCardViewHolder {
         return UniversityCardViewHolder(
             ViewUniversityCardBinding.inflate(
                 LayoutInflater.from(parent.context),
-                parent, false
+                parent,
+                false
             ).root
         )
     }
@@ -68,9 +70,13 @@ class UniversitiesCardViewAdapter(
 
         Picasso.get()
             .load(
-                AppCache.getCacheSupportUri(String.format(
-                    "%s/head.png", universities[position].uid
-                ), holder.nameLabel!!.context)
+                AppCache.getCacheSupportUri(
+                    String.format(
+                        "%s/head.png",
+                        universities[position].uid
+                    ),
+                    holder.nameLabel!!.context
+                )
             ).placeholder(R.drawable.ic_downloading)
             .into(holder.headImage)
 
@@ -89,7 +95,10 @@ class UniversitiesCardViewAdapter(
             if (FirebaseAuth.getInstance().currentUser == null) {
                 val tempUni = universities[position]
                 Snackbar.make(
-                    owner, holder.officialChip!!, owner.resources.getString(R.string.ucv_login_require), Snackbar.LENGTH_LONG
+                    owner,
+                    holder.officialChip!!,
+                    owner.resources.getString(R.string.ucv_login_require),
+                    Snackbar.LENGTH_LONG
                 ).setAction(R.string.ucv_auth) {
                     val dialog = AuthDialog()
                     dialog.setOnAuthListener(object : AuthDialog.OnAuthCompleted {
@@ -115,8 +124,8 @@ class UniversitiesCardViewAdapter(
                 holder.getBtn!!.context.resources,
                 R.drawable.ic_done,
                 holder.getBtn!!.context.theme
-            );
-            holder.getBtn!!.setText(R.string.ucv_state_downloaded);
+            )
+            holder.getBtn!!.setText(R.string.ucv_state_downloaded)
         } else {
             val pref = owner.getSharedPreferences(PreferencesData.BASE_PREFERENCES_NAME, MODE_PRIVATE)
             if (pref.getBoolean(PreferencesData.AUTO_DOWNLOAD_PREF, true)) {
@@ -151,8 +160,10 @@ class UniversitiesCardViewAdapter(
 
             if (parent != null) {
                 Snackbar.make(
-                    parent, R.string.cache_warn, Snackbar.LENGTH_LONG
-                ).show();
+                    parent,
+                    R.string.cache_warn,
+                    Snackbar.LENGTH_LONG
+                ).show()
             }
         }
     }

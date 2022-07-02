@@ -7,10 +7,10 @@ import android.content.Context
 import android.content.Context.MODE_PRIVATE
 import android.content.Intent
 import androidx.core.app.NotificationCompat
-import java.text.DateFormat
 import org.kimp.mustep.R
 import org.kimp.mustep.domain.Event
 import org.kimp.mustep.domain.University
+import java.text.DateFormat
 
 class EventsNotifyReceiver : BroadcastReceiver() {
     private val NOTIFICATION_CHANNEL_ID = "org.kimp.mustep.events"
@@ -26,7 +26,8 @@ class EventsNotifyReceiver : BroadcastReceiver() {
         notificationManager.createNotificationChannel(notificationChannel)
 
         PreferencesData.currentLanguage = context.getSharedPreferences(
-            PreferencesData.BASE_PREFERENCES_NAME, MODE_PRIVATE
+            PreferencesData.BASE_PREFERENCES_NAME,
+            MODE_PRIVATE
         ).getString(PreferencesData.PREFERRED_LANGUAGE_PREF, "en")!!
 
         val university = intent?.extras?.getParcelable<University>("uni")!!
@@ -34,11 +35,13 @@ class EventsNotifyReceiver : BroadcastReceiver() {
 
         val notification = NotificationCompat.Builder(context, NOTIFICATION_CHANNEL_ID)
             .setContentTitle(event.name.getTranslatedValue())
-            .setContentText(context.getString(
-                R.string.events_service_body,
-                DateFormat.getTimeInstance(DateFormat.SHORT).format(DateFormatter.toAndroidDate(event.date, event.time)),
-                event.name.getTranslatedValue(),
-                university.address.getTranslatedValue())
+            .setContentText(
+                context.getString(
+                    R.string.events_service_body,
+                    DateFormat.getTimeInstance(DateFormat.SHORT).format(DateFormatter.toAndroidDate(event.date, event.time)),
+                    event.name.getTranslatedValue(),
+                    university.address.getTranslatedValue()
+                )
             ).setShowWhen(true)
             .setSmallIcon(R.drawable.ic_event)
             .build()

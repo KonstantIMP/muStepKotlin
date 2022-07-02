@@ -10,9 +10,9 @@ data class TranslatableEntry(
     var ru: String = "",
     var zh: String = ""
 ) : Parcelable {
-    fun getTranslatedValue() : String {
+    fun getTranslatedValue(): String {
         return if (PreferencesData.currentLanguage == "ru" && ru.isNotEmpty()) ru
-            else if (PreferencesData.currentLanguage == "zh" && zh.isNotEmpty()) zh
-            else en
+        else if (PreferencesData.currentLanguage == "zh" && zh.isNotEmpty()) zh
+        else en
     }
 }

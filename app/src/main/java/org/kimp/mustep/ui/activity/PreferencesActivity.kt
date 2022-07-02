@@ -2,29 +2,17 @@ package org.kimp.mustep.ui.activity
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.annotation.IdRes
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.net.toFile
-import androidx.fragment.app.FragmentContainerView
 import androidx.lifecycle.lifecycleScope
 import com.amazonaws.regions.Region
 import com.amazonaws.regions.Regions
 import com.amazonaws.services.s3.AmazonS3Client
-import com.amazonaws.services.s3.model.ObjectMetadata
-import com.amazonaws.services.s3.model.PutObjectRequest
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.google.gson.GsonBuilder
 import io.getstream.avatarview.coil.loadImage
-import java.io.File
-import java.nio.file.Files
-import java.nio.file.StandardCopyOption
-import java.text.SimpleDateFormat
-import java.util.Date
-import java.util.Locale
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import org.kimp.mustep.R
@@ -39,6 +27,12 @@ import org.kimp.mustep.utils.StorageCredentials
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.io.File
+import java.nio.file.Files
+import java.nio.file.StandardCopyOption
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
 
 class PreferencesActivity : AppCompatActivity() {
     private lateinit var binding: ActivityPreferencesBinding
@@ -48,7 +42,6 @@ class PreferencesActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityPreferencesBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
 
         if (savedInstanceState == null) {
             supportFragmentManager.beginTransaction()
@@ -70,27 +63,32 @@ class PreferencesActivity : AppCompatActivity() {
         if (FirebaseAuth.getInstance().currentUser != null) {
             MuStepServiceBuilder.build()
                 .getUser(FirebaseAuth.getInstance().currentUser!!.uid)
-                .enqueue(object : Callback<User> {
-                    override fun onResponse(call: Call<User>, response: Response<User>) {
-                        loadUserData(response.body()!!)
-                    }
+                .enqueue(
+                    object : Callback<User> {
+                        override fun onResponse(call: Call<User>, response: Response<User>) {
+                            loadUserData(response.body()!!)
+                        }
 
-                    override fun onFailure(call: Call<User>, t: Throwable) {
-                        try {
-                            loadUserData(
-                                GsonBuilder().create()
-                                    .fromJson(getSharedPreferences(PreferencesData.BASE_PREFERENCES_NAME, MODE_PRIVATE)
-                                        .getString("user", ""), User::class.java)
-                            )
-                        } catch (e: Exception) {
-                            Snackbar.make(
-                                this@PreferencesActivity, binding.root,
-                                String.format("%s %s and %s", getString(R.string.error_preview), t.localizedMessage, e.localizedMessage),
-                                Snackbar.LENGTH_LONG
-                            ).show()
+                        override fun onFailure(call: Call<User>, t: Throwable) {
+                            try {
+                                loadUserData(
+                                    GsonBuilder().create()
+                                        .fromJson(
+                                            getSharedPreferences(PreferencesData.BASE_PREFERENCES_NAME, MODE_PRIVATE)
+                                                .getString("user", ""),
+                                            User::class.java
+                                        )
+                                )
+                            } catch (e: Exception) {
+                                Snackbar.make(
+                                    this@PreferencesActivity,
+                                    binding.root,
+                                    String.format("%s %s and %s", getString(R.string.error_preview), t.localizedMessage, e.localizedMessage),
+                                    Snackbar.LENGTH_LONG
+                                ).show()
+                            }
                         }
                     }
-                }
                 )
         }
     }
@@ -124,13 +122,14 @@ class PreferencesActivity : AppCompatActivity() {
             dialog.setOnAuthListener(object : AuthDialog.OnAuthCompleted {
                 override fun authCompleted(user: User) {
                     Snackbar.make(
-                        this@PreferencesActivity, binding.root,
-                        getString(R.string.pa_auth_success), Snackbar.LENGTH_LONG
+                        this@PreferencesActivity,
+                        binding.root,
+                        getString(R.string.pa_auth_success),
+                        Snackbar.LENGTH_LONG
                     ).show()
                     loadUserData(user)
                     setSignState()
                 }
-
             })
             dialog.show(supportFragmentManager, "auth_dialog")
         }
@@ -168,13 +167,18 @@ class PreferencesActivity : AppCompatActivity() {
             val inputStream = contentResolver.openInputStream(uri)!!
 
             val s3Client = AmazonS3Client(
-                StorageCredentials(), Region.getRegion(
+                StorageCredentials(),
+                Region.getRegion(
                     Regions.US_WEST_2
-                ))
+                )
+            )
             s3Client.endpoint = "storage.yandexcloud.net"
 
-            val avatarName = String.format("%s.%s", currentUser.uid,
-                SimpleDateFormat("ddMMyyyyhhmmss", Locale.getDefault()).format(Date()))
+            val avatarName = String.format(
+                "%s.%s",
+                currentUser.uid,
+                SimpleDateFormat("ddMMyyyyhhmmss", Locale.getDefault()).format(Date())
+            )
 
             Files.copy(
                 inputStream,
@@ -187,7 +191,8 @@ class PreferencesActivity : AppCompatActivity() {
 
             if (MuStepServiceBuilder.build()
                 .updateAvatar(currentUser.uid, avatarName)
-                .execute().body()!!) {
+                .execute().body()!!
+            ) {
                 currentUser.avatar = avatarName
 
                 runOnUiThread {

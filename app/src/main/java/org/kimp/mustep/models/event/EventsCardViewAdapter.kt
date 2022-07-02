@@ -13,11 +13,9 @@ import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import io.getstream.avatarview.coil.loadImage
-import java.text.DateFormat
 import org.kimp.mustep.R
 import org.kimp.mustep.databinding.ViewEventCardBinding
 import org.kimp.mustep.databinding.ViewNothingBinding
-
 import org.kimp.mustep.domain.Event
 import org.kimp.mustep.domain.University
 import org.kimp.mustep.rest.MuStepServiceBuilder
@@ -27,6 +25,7 @@ import org.kimp.mustep.utils.EventsNotifyReceiver
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.text.DateFormat
 import kotlin.streams.toList
 
 class EventsCardViewAdapter(
@@ -40,13 +39,15 @@ class EventsCardViewAdapter(
         return if (events.isEmpty()) object : ViewHolder(
             ViewNothingBinding.inflate(
                 LayoutInflater.from(parent.context),
-                parent, false
+                parent,
+                false
             ).root
         ) {}
         else EventsCardViewHolder(
             ViewEventCardBinding.inflate(
                 LayoutInflater.from(parent.context),
-                parent, false
+                parent,
+                false
             ).root
         )
     }
@@ -64,7 +65,7 @@ class EventsCardViewAdapter(
         holder.eventZhSupported!!.visibility = if (events[position].languages.zh.isEmpty()) View.GONE else View.VISIBLE
 
         holder.eventGuideName!!.text = events[position].guide.getTranslatedValue()
-        
+
         holder.eventDateChip!!.text = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.SHORT)
             .format(DateFormatter.toAndroidDate(events[position].date, events[position].time))
 
@@ -90,8 +91,7 @@ class EventsCardViewAdapter(
         if (event.users_count == event.users.size) {
             holder.ecvRegisterButton!!.text = owner.getString(R.string.ecv_closed)
             holder.ecvRegisterButton!!.isEnabled = false
-        }
-        else if (event.users.contains(FirebaseAuth.getInstance().currentUser!!.uid)) {
+        } else if (event.users.contains(FirebaseAuth.getInstance().currentUser!!.uid)) {
             holder.ecvRegisterButton!!.text = owner.getString(R.string.ecv_unregister)
             holder.ecvRegisterButton!!.isEnabled = true
 
@@ -108,12 +108,14 @@ class EventsCardViewAdapter(
                                 )
 
                                 event.users = event.users.stream()
-                                    .filter{ x -> x != FirebaseAuth.getInstance().currentUser!!.uid}
+                                    .filter { x -> x != FirebaseAuth.getInstance().currentUser!!.uid }
                                     .toList()
 
-                                val newEvents = ArrayList(events.stream()
-                                    .filter { x -> x.uid != event.uid }
-                                    .toList())
+                                val newEvents = ArrayList(
+                                    events.stream()
+                                        .filter { x -> x.uid != event.uid }
+                                        .toList()
+                                )
                                 newEvents.add(event)
 
                                 AppCache.putEvents(event.university, newEvents)
@@ -125,7 +127,8 @@ class EventsCardViewAdapter(
                                 it.isEnabled = true
 
                                 Snackbar.make(
-                                    owner, it,
+                                    owner,
+                                    it,
                                     owner.resources.getString(R.string.ecv_unregister_ok),
                                     Snackbar.LENGTH_SHORT
                                 ).show()
@@ -135,7 +138,8 @@ class EventsCardViewAdapter(
 
                             override fun onFailure(call: Call<Void>, t: Throwable) {
                                 Snackbar.make(
-                                    owner, it,
+                                    owner,
+                                    it,
                                     String.format(
                                         "%s: %s",
                                         owner.resources.getString(R.string.error_preview),
@@ -148,8 +152,7 @@ class EventsCardViewAdapter(
                         }
                     )
             }
-        }
-        else {
+        } else {
             holder.ecvRegisterButton!!.setOnClickListener {
                 it.isEnabled = false
 
@@ -163,9 +166,11 @@ class EventsCardViewAdapter(
                                     event.users = this
                                 }
 
-                                val newEvents = ArrayList(events.stream()
-                                    .filter { x -> x.uid != event.uid }
-                                    .toList())
+                                val newEvents = ArrayList(
+                                    events.stream()
+                                        .filter { x -> x.uid != event.uid }
+                                        .toList()
+                                )
                                 newEvents.add(event)
 
                                 AppCache.putEvents(event.university, newEvents)
@@ -177,8 +182,9 @@ class EventsCardViewAdapter(
                                 it.isEnabled = true
 
                                 Snackbar.make(
-                                    owner, it,
-                                        owner.resources.getString(R.string.ecv_register_ok),
+                                    owner,
+                                    it,
+                                    owner.resources.getString(R.string.ecv_register_ok),
                                     Snackbar.LENGTH_SHORT
                                 ).show()
 
@@ -187,7 +193,8 @@ class EventsCardViewAdapter(
                                 alarmManager.set(
                                     AlarmManager.RTC_WAKEUP,
                                     DateFormatter.toAndroidDate(
-                                        event.date, event.time
+                                        event.date,
+                                        event.time
                                     ).time - 2 * 60 * 60 * 1000,
                                     generatePendingIntent(event)
                                 )
@@ -195,7 +202,8 @@ class EventsCardViewAdapter(
 
                             override fun onFailure(call: Call<Void>, t: Throwable) {
                                 Snackbar.make(
-                                    owner, it,
+                                    owner,
+                                    it,
                                     String.format(
                                         "%s: %s",
                                         owner.resources.getString(R.string.error_preview),
@@ -211,7 +219,7 @@ class EventsCardViewAdapter(
         }
     }
 
-    private fun generatePendingIntent(event: Event) : PendingIntent {
+    private fun generatePendingIntent(event: Event): PendingIntent {
         val intent = Intent(owner, EventsNotifyReceiver::class.java)
 
         intent.putExtra("uni", university)

@@ -86,15 +86,18 @@ class AuthDialog : DialogFragment() {
         binding.adMoverTv.minHeight = binding.adPassIl.height
         binding.adMoverTv.maxHeight = binding.adPassIl.height
 
-        binding.adAuthTypeMsg.text = if (isSignUp) requireContext().resources.getString(R.string.ad_do_not_have_account) else
+        binding.adAuthTypeMsg.text = if (isSignUp) requireContext().resources.getString(R.string.ad_do_not_have_account) else {
             requireContext().resources.getString(R.string.ad_has_account)
+        }
 
         val fadeSlideAnimation = AnimationUtils.loadAnimation(
-            context, if (isSignUp) R.anim.fade_slide_out else R.anim.fade_slide_in
+            context,
+            if (isSignUp) R.anim.fade_slide_out else R.anim.fade_slide_in
         )
 
         val slideAnimation = AnimationUtils.loadAnimation(
-            context, if (isSignUp) R.anim.slide_out else R.anim.slide_in
+            context,
+            if (isSignUp) R.anim.slide_out else R.anim.slide_in
         )
 
         fadeSlideAnimation.setAnimationListener(object : Animation.AnimationListener {
@@ -102,7 +105,7 @@ class AuthDialog : DialogFragment() {
 
             override fun onAnimationEnd(p0: Animation?) {
                 binding.adNameIl.visibility = if (isSignUp) View.GONE
-                    else View.VISIBLE
+                else View.VISIBLE
 
                 isSignUp = !isSignUp
             }
@@ -151,8 +154,10 @@ class AuthDialog : DialogFragment() {
                 binding.adPassIt.text.toString()
             ).addOnFailureListener {
                 Snackbar.make(
-                    requireContext(), binding.root,
-                    String.format("%s %s", requireContext().getString(R.string.error_preview), it.localizedMessage), Snackbar.LENGTH_LONG
+                    requireContext(),
+                    binding.root,
+                    String.format("%s %s", requireContext().getString(R.string.error_preview), it.localizedMessage),
+                    Snackbar.LENGTH_LONG
                 ).show()
                 setLayoutState(true)
             }.addOnSuccessListener {
@@ -164,7 +169,7 @@ class AuthDialog : DialogFragment() {
                 MuStepServiceBuilder.build()
                     .newUser(newUser)
                     .enqueue(
-                        object: Callback<User> {
+                        object : Callback<User> {
                             override fun onResponse(call: Call<User>, response: Response<User>) {
                                 completeAuth(response.body()!!)
                                 this@AuthDialog.dismiss()
@@ -172,8 +177,10 @@ class AuthDialog : DialogFragment() {
 
                             override fun onFailure(call: Call<User>, t: Throwable) {
                                 Snackbar.make(
-                                    requireContext(), binding.root,
-                                    String.format("%s %s", requireContext().getString(R.string.error_preview), t.localizedMessage), Snackbar.LENGTH_LONG
+                                    requireContext(),
+                                    binding.root,
+                                    String.format("%s %s", requireContext().getString(R.string.error_preview), t.localizedMessage),
+                                    Snackbar.LENGTH_LONG
                                 ).show()
                                 setLayoutState(true)
                             }
@@ -189,15 +196,17 @@ class AuthDialog : DialogFragment() {
                 binding.adPassIt.text.toString()
             ).addOnFailureListener {
                 Snackbar.make(
-                    requireContext(), binding.root,
-                    String.format("%s %s", requireContext().getString(R.string.error_preview), it.localizedMessage), Snackbar.LENGTH_LONG
+                    requireContext(),
+                    binding.root,
+                    String.format("%s %s", requireContext().getString(R.string.error_preview), it.localizedMessage),
+                    Snackbar.LENGTH_LONG
                 ).show()
                 setLayoutState(true)
             }.addOnSuccessListener {
                 MuStepServiceBuilder.build()
                     .getUser(it.user!!.uid)
                     .enqueue(
-                        object: Callback<User> {
+                        object : Callback<User> {
                             override fun onResponse(call: Call<User>, response: Response<User>) {
                                 completeAuth(response.body()!!)
                                 this@AuthDialog.dismiss()
@@ -205,8 +214,10 @@ class AuthDialog : DialogFragment() {
 
                             override fun onFailure(call: Call<User>, t: Throwable) {
                                 Snackbar.make(
-                                    requireContext(), binding.root,
-                                    String.format("%s %s", requireContext().getString(R.string.error_preview), t.localizedMessage), Snackbar.LENGTH_LONG
+                                    requireContext(),
+                                    binding.root,
+                                    String.format("%s %s", requireContext().getString(R.string.error_preview), t.localizedMessage),
+                                    Snackbar.LENGTH_LONG
                                 ).show()
                                 setLayoutState(true)
                             }

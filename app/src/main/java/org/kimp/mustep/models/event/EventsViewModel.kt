@@ -1,25 +1,24 @@
 package org.kimp.mustep.models.event
 
 import android.app.Application
-import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import java.util.Date
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import org.kimp.mustep.domain.Event
 import org.kimp.mustep.rest.MuStepServiceBuilder
 import org.kimp.mustep.utils.AppCache
 import org.kimp.mustep.utils.DateFormatter
+import java.util.Date
 import kotlin.streams.toList
 
 class EventsViewModel(application: Application) : AndroidViewModel(application) {
     private var events: MutableLiveData<List<Event>> = MutableLiveData()
 
     fun loadEvents(uid: String) {
-        viewModelScope.launch (Dispatchers.IO) {
+        viewModelScope.launch(Dispatchers.IO) {
             if (AppCache.getEvents(uid) != null) {
                 events.postValue(AppCache.getEvents(uid)!!)
                 return@launch
@@ -43,5 +42,5 @@ class EventsViewModel(application: Application) : AndroidViewModel(application) 
         }
     }
 
-    fun getEvents() : LiveData<List<Event>> = events
+    fun getEvents(): LiveData<List<Event>> = events
 }

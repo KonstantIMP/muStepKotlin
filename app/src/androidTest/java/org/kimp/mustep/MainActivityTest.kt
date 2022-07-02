@@ -15,6 +15,5 @@ class MainActivityTest {
 
     @Test
     fun typeANumber_resultIsDisplayed() {
-
     }
 }

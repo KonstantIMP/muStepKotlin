@@ -1,15 +1,10 @@
 package org.kimp.mustep.utils.service
 
 import android.app.Service
-import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Binder
-import android.os.Handler
 import android.os.IBinder
-import android.os.Looper
-import android.os.Messenger
-import android.util.Log
 import com.google.android.exoplayer2.ExoPlayer
 import com.google.android.exoplayer2.MediaItem
 import java.lang.Float.min
@@ -33,17 +28,17 @@ class MediaPoolService : Service() {
     }
 
     inner class MediaPoolBinder : Binder() {
-        fun getService() : MediaPoolService = this@MediaPoolService
+        fun getService(): MediaPoolService = this@MediaPoolService
     }
 
-    fun isPlaying() : Boolean = player.isPlaying
+    fun isPlaying(): Boolean = player.isPlaying
 
     fun setSource(uri: Uri) {
         player.addMediaItem(MediaItem.fromUri(uri))
         player.prepare()
     }
 
-    fun getProgress() : Float {
+    fun getProgress(): Float {
         return min(100.0f, player.currentPosition * 100.0f / player.contentDuration)
     }
 

@@ -9,7 +9,6 @@ import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.Paint
 import android.graphics.drawable.Drawable
-import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.IBinder
@@ -20,9 +19,6 @@ import android.view.View
 import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.res.ResourcesCompat
-import com.google.android.exoplayer2.ExoPlayer
-import com.google.android.exoplayer2.MediaItem
-import com.google.android.exoplayer2.Player
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.slider.Slider
 import com.google.android.material.snackbar.Snackbar
@@ -36,7 +32,6 @@ import com.here.sdk.mapviewlite.MapStyle
 import com.here.sdk.mapviewlite.PickMapItemsCallback
 import com.here.sdk.mapviewlite.WatermarkPlacement
 import com.squareup.picasso.Picasso
-import java.util.stream.Collectors
 import org.kimp.mustep.R
 import org.kimp.mustep.databinding.ActivityTravelBinding
 import org.kimp.mustep.databinding.ViewFloorButtonBinding
@@ -50,8 +45,8 @@ import org.kimp.mustep.utils.service.MediaPoolService
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.util.stream.Collectors
 import kotlin.math.min
-
 
 class TravelActivity : AppCompatActivity() {
     private lateinit var binding: ActivityTravelBinding
@@ -78,10 +73,14 @@ class TravelActivity : AppCompatActivity() {
         binding.taMapView.onCreate(savedInstanceState)
         binding.taMapView.setWatermarkPosition(WatermarkPlacement.BOTTOM_CENTER, 20)
 
-        binding.taContentSv.setMaxHeight(resources.displayMetrics.heightPixels * 6 / 10);
+        binding.taContentSv.setMaxHeight(resources.displayMetrics.heightPixels * 6 / 10)
         if (resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) {
-            binding.taContentSv.setMaxHeight(min(resources.displayMetrics.widthPixels * 3 / 10,
-                resources.displayMetrics.heightPixels * 3 / 10));
+            binding.taContentSv.setMaxHeight(
+                min(
+                    resources.displayMetrics.widthPixels * 3 / 10,
+                    resources.displayMetrics.heightPixels * 3 / 10
+                )
+            )
         }
 
         if (savedInstanceState == null) {
@@ -119,11 +118,13 @@ class TravelActivity : AppCompatActivity() {
             }
         }
 
-        binding.taSoundSlider.addOnChangeListener(Slider.OnChangeListener { _, value, fromUser ->
-            if (fromUser && soundSelected && mBound) {
-                mService.seekToProgress(value)
+        binding.taSoundSlider.addOnChangeListener(
+            Slider.OnChangeListener { _, value, fromUser ->
+                if (fromUser && soundSelected && mBound) {
+                    mService.seekToProgress(value)
+                }
             }
-        })
+        )
 
         binding.taPlayPauseBtn.setOnClickListener {
             if (mBound && mService.isPlaying()) {
@@ -140,7 +141,8 @@ class TravelActivity : AppCompatActivity() {
                                 activeFloor.number,
                                 activePoint.uid,
                                 PreferencesData.getAudioSuffix()
-                            ), this
+                            ),
+                            this
                         )
                     )
                     soundSelected = true
@@ -288,7 +290,6 @@ class TravelActivity : AppCompatActivity() {
             }.collect(Collectors.toList())[0]
         activePoint = point
 
-
         binding.taContentSv.visibility = View.VISIBLE
         binding.taPointNameMsg.text = point.name.getTranslatedValue()
         binding.taPointDescMsg.text = String.format("\t%s", point.data.getTranslatedValue())
@@ -301,7 +302,8 @@ class TravelActivity : AppCompatActivity() {
                         university.uid,
                         activeFloor.number,
                         point.uid
-                    ), this
+                    ),
+                    this
                 )
             ).placeholder(R.drawable.ic_downloading)
             .into(binding.taPointImage)
@@ -316,7 +318,9 @@ class TravelActivity : AppCompatActivity() {
 
         val radiusInPixel = 2f
 
-        binding.taMapView.pickMapItems(touchPoint, radiusInPixel.toDouble(),
+        binding.taMapView.pickMapItems(
+            touchPoint,
+            radiusInPixel.toDouble(),
             PickMapItemsCallback { pickMapItemsResult ->
                 if (pickMapItemsResult == null) {
                     return@PickMapItemsCallback
@@ -325,7 +329,8 @@ class TravelActivity : AppCompatActivity() {
                     pickMapItemsResult.topmostMarker ?: return@PickMapItemsCallback
                 unloadPoint()
                 loadPoint(topmostMapMarker.metadata!!.getInteger("number")!!)
-            })
+            }
+        )
     }
 
     private fun createMarkerBitmap(point: Point): Bitmap {
@@ -424,10 +429,11 @@ class TravelActivity : AppCompatActivity() {
     private val soundProgressUpdateHandler = Handler(Looper.getMainLooper())
     private val soundProgressUpdateRunnable = object : Runnable {
         override fun run() {
-            if (mBound && soundSelected)
+            if (mBound && soundSelected) {
                 binding.taSoundSlider.value = mService.getProgress()
+            }
             if (binding.taSoundSlider.value == 100.0f) {
-                mService.seekToProgress(0.0f);
+                mService.seekToProgress(0.0f)
                 mService.pause()
                 binding.taPlayPauseBtn.icon =
                     ResourcesCompat.getDrawable(resources, R.drawable.ic_play, theme)

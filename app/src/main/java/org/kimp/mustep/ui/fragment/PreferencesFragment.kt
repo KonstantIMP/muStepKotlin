@@ -1,21 +1,15 @@
 package org.kimp.mustep.ui.fragment
 
-import android.content.Context
 import android.content.Context.MODE_PRIVATE
 import android.content.SharedPreferences
 import android.os.Bundle
-import android.util.Log
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import com.google.android.material.color.DynamicColors
 import com.google.android.material.snackbar.Snackbar
-import java.io.File
 import org.kimp.mustep.R
 import org.kimp.mustep.utils.PreferencesData
-
+import java.io.File
 
 class PreferencesFragment : PreferenceFragmentCompat(), SharedPreferences.OnSharedPreferenceChangeListener {
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
@@ -37,8 +31,10 @@ class PreferencesFragment : PreferenceFragmentCompat(), SharedPreferences.OnShar
             editor.putStringSet("cached", HashSet())
             editor.apply()
             Snackbar.make(
-                requireContext(), requireView(),
-                getString(R.string.pref_done), Snackbar.LENGTH_LONG
+                requireContext(),
+                requireView(),
+                getString(R.string.pref_done),
+                Snackbar.LENGTH_LONG
             ).show()
             false
         }
@@ -53,11 +49,14 @@ class PreferencesFragment : PreferenceFragmentCompat(), SharedPreferences.OnShar
     override fun onSharedPreferenceChanged(pref: SharedPreferences?, name: String?) {
         when (name) {
             "dynamic_colors" -> if (context != null && isAdded) Snackbar.make(
-                requireContext(), requireView(),
-                getString(R.string.pref_restart_need), Snackbar.LENGTH_LONG
+                requireContext(),
+                requireView(),
+                getString(R.string.pref_restart_need),
+                Snackbar.LENGTH_LONG
             ).show()
-            "preferred_language" -> PreferencesData.currentLanguage =
-                pref?.getString("preferred_language", PreferencesData.currentLanguage)!!
+            "preferred_language" ->
+                PreferencesData.currentLanguage =
+                    pref?.getString("preferred_language", PreferencesData.currentLanguage)!!
         }
     }
 }

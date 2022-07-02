@@ -1,19 +1,19 @@
 package org.kimp.mustep.utils
 
 import android.net.Uri
-import java.io.File
-import java.util.concurrent.TimeUnit
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import okio.buffer
 import okio.sink
+import java.io.File
+import java.util.concurrent.TimeUnit
 
 class DownloadClient {
     private var client: OkHttpClient = OkHttpClient.Builder()
         .connectTimeout(700, TimeUnit.MILLISECONDS)
         .build()
 
-    fun downloadFile(path: Uri, out: File) : Boolean {
+    fun downloadFile(path: Uri, out: File): Boolean {
         if (out.exists()) return true
         try {
             val request = Request.Builder().url(path.toString()).build()

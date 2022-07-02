@@ -12,15 +12,13 @@ import android.os.Looper
 import android.os.Message
 import android.os.Messenger
 import com.google.gson.GsonBuilder
-import java.io.File
-import java.io.FileWriter
-import org.kimp.mustep.R
 import org.kimp.mustep.domain.University
 import org.kimp.mustep.rest.MuStepServiceBuilder
 import org.kimp.mustep.utils.AppCache
 import org.kimp.mustep.utils.DownloadClient
 import org.kimp.mustep.utils.PreferencesData
-
+import java.io.File
+import java.io.FileWriter
 
 private const val DOWNLOADING_SERVICE_NOTIFY: Int = 13
 const val DOWNLOADING_SERVICE_MSG_QUEUE = 12
@@ -101,8 +99,10 @@ class BackgroundDownloadingService : Service() {
 
                 client.downloadFile(
                     AppCache.getCacheSupportUri(
-                        String.format("%s/head.png", uni.uid), this
-                    ), File(root, "head.png")
+                        String.format("%s/head.png", uni.uid),
+                        this
+                    ),
+                    File(root, "head.png")
                 )
 
                 val floors = MuStepServiceBuilder.build()
