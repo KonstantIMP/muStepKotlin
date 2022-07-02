@@ -10,6 +10,8 @@ object PreferencesData {
     const val AUTO_DOWNLOAD_PREF: String = "auto_download"
     const val REMOVE_CACHED_PREF: String = "remove_cached"
 
+    const val LAST_START_VERSION_PREF: String = "last_start_version"
+
     var currentLanguage: String = ""
 
     fun getAudioSuffix() : String = if (currentLanguage == "ru") "ru" else "en"

@@ -31,10 +31,10 @@
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/ccv_image"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:adjustViewBounds="true"
             android:layout_margin="16dp"
-            android:scaleType="centerCrop"
+            android:scaleType="centerInside"
             app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.Image"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@id/ccv_desc_msg"
