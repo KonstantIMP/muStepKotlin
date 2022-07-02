@@ -4,7 +4,7 @@ import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-data class Event (
+data class Event(
     var uid: String = "",
     var university: String = "",
     var date: Date = Date(),

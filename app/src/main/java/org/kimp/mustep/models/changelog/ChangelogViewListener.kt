@@ -6,8 +6,10 @@ import com.synnapps.carouselview.ViewListener
 import org.kimp.mustep.databinding.ViewChangeCardBinding
 import org.kimp.mustep.domain.Change
 
-class ChangelogViewListener(private val changes: List<Change>,
-    private val owner: Activity) : ViewListener {
+class ChangelogViewListener(
+    private val changes: List<Change>,
+    private val owner: Activity
+) : ViewListener {
     override fun setViewForPosition(position: Int): View {
         val binding = ViewChangeCardBinding.inflate(
             owner.layoutInflater

@@ -24,7 +24,8 @@ class MainActivity : AppCompatActivity() {
         val prefs = getSharedPreferences(PreferencesData.BASE_PREFERENCES_NAME, MODE_PRIVATE)
         if (BuildConfig.VERSION_NAME != prefs.getString(PreferencesData.LAST_START_VERSION_PREF, "")!!) {
             ChangelogDialog().show(
-                supportFragmentManager, "changelog_dialog"
+                supportFragmentManager,
+                "changelog_dialog"
             )
             prefs.edit().apply {
                 this.putString(PreferencesData.LAST_START_VERSION_PREF, BuildConfig.VERSION_NAME)

@@ -34,7 +34,9 @@ class UniversitiesActivity() : AppCompatActivity() {
 
         if (resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) {
             binding.uaUniversitiesRv.layoutManager = LinearLayoutManager(
-                this, LinearLayoutManager.HORIZONTAL, false
+                this,
+                LinearLayoutManager.HORIZONTAL,
+                false
             )
         }
 
@@ -77,7 +79,7 @@ class UniversitiesActivity() : AppCompatActivity() {
             mService = binder.getService()
             mBound = true
 
-            mService.stopPlaying();
+            mService.stopPlaying()
         }
 
         override fun onServiceDisconnected(arg0: ComponentName) {

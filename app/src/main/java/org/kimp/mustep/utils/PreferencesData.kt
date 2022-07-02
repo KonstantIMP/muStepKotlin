@@ -1,7 +1,5 @@
 package org.kimp.mustep.utils
 
-import org.kimp.mustep.MuStepApplication
-
 object PreferencesData {
     const val BASE_PREFERENCES_NAME: String = "org.kimp.mustep_preferences"
 
@@ -14,5 +12,5 @@ object PreferencesData {
 
     var currentLanguage: String = ""
 
-    fun getAudioSuffix() : String = if (currentLanguage == "ru") "ru" else "en"
+    fun getAudioSuffix(): String = if (currentLanguage == "ru") "ru" else "en"
 }

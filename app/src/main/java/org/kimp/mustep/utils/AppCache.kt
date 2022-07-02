@@ -10,12 +10,11 @@ import com.amazonaws.regions.Regions
 import com.amazonaws.services.s3.AmazonS3Client
 import com.google.common.reflect.TypeToken
 import com.google.gson.GsonBuilder
+import org.kimp.mustep.domain.Event
+import org.kimp.mustep.domain.Floor
 import java.io.File
 import java.lang.reflect.Type
 import java.nio.file.Files
-import org.kimp.mustep.domain.Event
-import org.kimp.mustep.domain.Floor
-import org.kimp.mustep.domain.University
 
 object AppCache {
     const val IMAGE_CACHE_SIZE: Long = 32 * 1024 * 1024
@@ -30,9 +29,12 @@ object AppCache {
         val local = File(String.format("%s%s%s", context.cacheDir, File.separator, relativePath))
         if (local.exists()) return Uri.fromFile(local)
 
-        var s3Client = AmazonS3Client(StorageCredentials(), Region.getRegion(
-            Regions.US_WEST_2
-        ))
+        var s3Client = AmazonS3Client(
+            StorageCredentials(),
+            Region.getRegion(
+                Regions.US_WEST_2
+            )
+        )
         s3Client.endpoint = "storage.yandexcloud.net"
 
         return Uri.parse(
@@ -40,10 +42,10 @@ object AppCache {
         )
     }
 
-    fun isUniversityCached(uid: String, context: Context) : Boolean {
+    fun isUniversityCached(uid: String, context: Context): Boolean {
         return File(context.cacheDir, uid).exists() &&
-                context.getSharedPreferences(PreferencesData.BASE_PREFERENCES_NAME, MODE_PRIVATE)
-                    .getStringSet("cached", HashSet())!!.contains(uid)
+            context.getSharedPreferences(PreferencesData.BASE_PREFERENCES_NAME, MODE_PRIVATE)
+                .getStringSet("cached", HashSet())!!.contains(uid)
     }
 
     fun loadCachedFloors(context: Context) {
@@ -52,9 +54,12 @@ object AppCache {
             try {
                 val floors = File(context.cacheDir, String.format("%s%sfloors.txt", uid, File.separator))
                 val listType: Type = object : TypeToken<List<Floor>>() {}.type
-                (GsonBuilder().create().fromJson(
-                    String(Files.readAllBytes(floors.toPath())), listType
-                ) as List<Floor>).apply {
+                (
+                    GsonBuilder().create().fromJson(
+                        String(Files.readAllBytes(floors.toPath())),
+                        listType
+                    ) as List<Floor>
+                    ).apply {
                     putFloors(uid, this)
                 }
             } catch (e: Exception) {
@@ -67,11 +72,11 @@ object AppCache {
         eventsCache.put(uid, events)
     }
 
-    fun getEvents(uid: String) : List<Event>? = eventsCache.get(uid)
+    fun getEvents(uid: String): List<Event>? = eventsCache.get(uid)
 
     fun putFloors(uid: String, floors: List<Floor>) {
         floorCache.put(uid, floors)
     }
 
-    fun getFloors(uid: String) : List<Floor>? = floorCache.get(uid)
+    fun getFloors(uid: String): List<Floor>? = floorCache.get(uid)
 }
