@@ -48,6 +48,8 @@ class ChangelogDialog : DialogFragment() {
             binding.adChangesCarousel.pageCount = it.size
         }
 
+        binding.adCloseBtn.setOnClickListener { this.dismiss() }
+
         return binding.root
     }
 }

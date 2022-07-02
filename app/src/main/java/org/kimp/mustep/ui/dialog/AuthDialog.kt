@@ -64,6 +64,8 @@ class AuthDialog : DialogFragment() {
         binding.adEmailIt.setText(savedInstanceState?.getString("email", ""))
         binding.adPassIt.setText(savedInstanceState?.getString("pass", ""))
 
+        binding.adCloseBtn.setOnClickListener { this.dismiss() }
+
         return binding.root
     }
 

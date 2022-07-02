@@ -7,6 +7,17 @@
     android:background="@drawable/dialog_shape"
     tools:context=".ui.dialog.AuthDialog">
 
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/ad_close_btn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/Widget.Material3.Button.IconButton"
+        app:icon="@drawable/ic_close"/>
+
     <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/ad_title_lottie"
         android:layout_width="0dp"
